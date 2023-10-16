@@ -1,10 +1,10 @@
 <div class="calculator">
-  <form action="" method="post" class="calculator-form">
+  <form #myForm="ngForm" class="calculator-form" (ngSubmit)="calculate(myForm)">
     <label for="OG">OG</label>
-    <input type="number" name="OG" id="OG">
-    <label for="FG"></label>
-    <input type="number" name="FG" id="FG">
-    <button type="submit" class="btn-calculator">Calcola</button>
-    <span id="result"></span>
+    <input type="number" name="OG" id="OG" ngModel>
+    <label for="FG">FG</label>
+    <input type="number" name="FG" id="FG" ngModel>
+    <button type="submit" class="btn-calculator">Calcola</button><br>
+    <span *ngIf="resultValue != ''">La tua birra avrà {{resultValue}}%</span>
   </form>
 </div>
