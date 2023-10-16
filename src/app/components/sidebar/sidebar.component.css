@@ -1,0 +1,46 @@
+.sideBar{
+  width: 25%;
+  height: auto;
+  background: url("src/assets/images/hops.jpg")  no-repeat center / cover  ;
+}
+
+.profile{
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile img {
+  height: 150px;
+  margin-top: 30px;
+  border-radius: 100%;
+}
+
+.sideBar h4{
+  color: #fff;
+}
+
+.sideBar ul, .logout {
+  height: auto;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.sideBar button{
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  color: #fff;
+  background-color: #917941;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover{
+  background-color:  #ae8e45;
+}
