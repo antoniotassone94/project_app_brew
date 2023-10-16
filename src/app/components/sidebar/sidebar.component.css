@@ -1,4 +1,4 @@
-.sideBar{
+.sidebar{
   width: auto;
   height: auto;
   background: url("src/assets/images/hops.jpg")  no-repeat center / cover  ;
@@ -16,11 +16,11 @@
   border-radius: 100%;
 }
 
-.sideBar h4{
+.sidebar h4{
   color: #fff;
 }
 
-.sideBar ul, .logout {
+.sidebar ul, .logout {
   height: auto;
   padding: 20px;
   margin-top: 20px;
@@ -30,7 +30,7 @@
   gap: 20px;
 }
 
-.sideBar button{
+.sidebar button{
   height: 40px;
   width: 100%;
   font-size: 16px;
