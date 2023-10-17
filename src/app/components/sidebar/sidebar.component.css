@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.profile img {
+.profile img{
   height: 150px;
   margin-top: 30px;
   border-radius: 100%;
@@ -20,7 +20,7 @@
   color: #fff;
 }
 
-.sidebar ul, .logout {
+.sidebar ul,.logout{
   height: auto;
   padding: 20px;
   margin-top: 20px;
@@ -41,6 +41,6 @@
   cursor: pointer;
 }
 
-button:hover{
+.sidebar button:hover{
   background-color:  #ae8e45;
 }
