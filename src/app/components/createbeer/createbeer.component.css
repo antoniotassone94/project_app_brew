@@ -1,0 +1,51 @@
+.add-content{
+  width: 30%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-content .create-content{
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-content input{
+  width: 50%;
+  height: 40px;
+  margin: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.list{
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+}
+
+.list li{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list{
+  height:auto;
+  width: 300px;
+  margin: 10px;
+  border-radius: 3px;
+  background-color: #ae8e45;
+  color: #f0f0f0;
+}

@@ -1,0 +1,18 @@
+<div class="add-content">
+  <form #formCreate="ngForm" (onSubmit)="createBeer(formCreate)" class="create-content">
+    <label for="brewingname">Brewing name</label>
+    <input type="text" name="brewingname" id="brewingname" ngModel>
+    <label for="OG">OG</label>
+    <input type="number" name="OG" id="OG" ngModel>
+    <label for="FG">FG</label>
+    <input type="number" name="FG" id="FG" ngModel>
+    <label for="alcohol">Alcohol</label>
+    <input type="number" name="alcohol" id="alcohol" ngModel>
+    <button type="submit" class="btn">Add new beer</button>
+  </form>
+  <ul class="list" *ngFor="let beer of beersList">
+    <li>
+      <app-card [brewingName]="beer.brewingName" [ogValue]="beer.ogValue" [fgValue]="beer.fgValue" [alcohol]="beer.alcohol"></app-card>
+    </li>
+  </ul>
+</div>

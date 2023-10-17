@@ -40,3 +40,8 @@ text-align: center;
   font-size: 18px;
   font-weight: bold;
 }
+
+#calculatorAndCreate{
+  display: flex;
+  flex-direction: row;
+}

@@ -44,3 +44,7 @@
 .sidebar button:hover{
   background-color:  #ae8e45;
 }
+
+.logout button,.logout button:hover{
+  background-color:transparent;
+}

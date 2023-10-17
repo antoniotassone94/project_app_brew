@@ -1,0 +1,31 @@
+.card p{
+  margin: 10px;
+  font-size: 18px;
+}
+
+.card{
+  height:auto;
+  width: 300px;
+  margin: 10px;
+  border-radius: 3px;
+  background-color: #ae8e45;
+  color: #f0f0f0;
+}
+
+.btn-card{
+  width: 20%;
+  height: 25px;
+  margin: 5px;
+  border: none;
+  border-radius: 3px;
+  background-color: #f0f0f0;
+  color: #917941;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-card:hover{
+  color: #f0f0f0;
+  background-color: #917941;
+}
