@@ -20,7 +20,7 @@
   height: 40px;
   margin: 20px;
   font-size: 16px;
-text-align: center;
+  text-align: center;
 }
 
 .btn-calculator{
@@ -39,9 +39,4 @@ text-align: center;
   height: 20px;
   font-size: 18px;
   font-weight: bold;
-}
-
-#elementsPage{
-  display: flex;
-  flex-direction: row;
 }

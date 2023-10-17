@@ -1,12 +1,13 @@
 .add-content{
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: max-content;
+  margin-top:35px;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.add-content .create-content{
+.create-content{
   height: 80%;
   width: 100%;
   display: flex;
@@ -16,16 +17,16 @@
 }
 
 .create-content input{
-  width: 100%;
+  width: 50%;
   height: 40px;
-  margin: 10px;
+  margin: 20px;
   font-size: 16px;
   text-align: center;
 }
 
 .btn-create{
   height: 40px;
-  width: 100%;
+  width: 50%;
   border: none;
   font-size: 16px;
   color: #fff;
