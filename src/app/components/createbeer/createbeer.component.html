@@ -10,9 +10,9 @@
     <input type="number" name="alcohol" id="alcohol" ngModel>
     <button type="submit" class="btn-create">Add new beer</button>
   </form>
-  <ul class="list" *ngFor="let beer of beersList">
+  <ul class="list" *ngFor="let beer of getBeersList()">
     <li>
-      <app-card [brewingName]="beer.brewingName" [ogValue]="beer.ogValue" [fgValue]="beer.fgValue" [alcohol]="beer.alcohol"></app-card>
+      <app-card [brewingName]="beer.getBrewingName()" [ogValue]="beer.getOGvalue()" [fgValue]="beer.getFGvalue()" [alcohol]="beer.getAlcohol()"></app-card>
     </li>
   </ul>
 </div>

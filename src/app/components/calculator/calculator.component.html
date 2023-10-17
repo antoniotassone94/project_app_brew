@@ -1,13 +1,13 @@
 <div class="calculator">
-  <div id="calculatorAndCreate">
-  <form #myForm="ngForm" class="calculator-form" (ngSubmit)="calculate(myForm)">
-    <label for="OG">Original Gravity (OG)</label>
-    <input type="number" name="OG" id="OG" ngModel>
-    <label for="FG">Final Gravity (FG)</label>
-    <input type="number" name="FG" id="FG" ngModel>
-    <button type="submit" class="btn-calculator">Calculate</button><br>
-    <span *ngIf="resultValue != ''">Your beer will have {{resultValue}}% alcohol.</span>
-  </form>
-  <app-createbeer></app-createbeer>
+  <div id="elementsPage">
+    <form #myForm="ngForm" class="calculator-form" (ngSubmit)="calculate(myForm)">
+      <label for="OG">Original Gravity (OG)</label>
+      <input type="number" name="OG" id="OG" ngModel>
+      <label for="FG">Final Gravity (FG)</label>
+      <input type="number" name="FG" id="FG" ngModel>
+      <button type="submit" class="btn-calculator">Calculate</button><br>
+      <span *ngIf="getResult() != ''">Your beer will have {{getResult()}}% alcohol.</span>
+    </form>
+    <app-createbeer></app-createbeer>
   </div>
 </div>

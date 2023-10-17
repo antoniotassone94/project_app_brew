@@ -1,7 +1,23 @@
 export class Beer{
   constructor(
-    public brewingName:string,
-    public ogValue:number,
-    public fgValue:number,
-    public alcohol:number){}
+    private brewingName:string,
+    private ogValue:number,
+    private fgValue:number,
+    private alcohol:number){}
+
+  public getBrewingName():string{
+    return this.brewingName;
+  }
+
+  public getOGvalue():number{
+    return this.ogValue;
+  }
+
+  public getFGvalue():number{
+    return this.fgValue;
+  }
+
+  public getAlcohol():number{
+    return this.alcohol;
+  }
 }

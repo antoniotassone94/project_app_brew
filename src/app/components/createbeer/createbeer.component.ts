@@ -7,14 +7,19 @@ import {Beer} from "src/app/models/beer";
   templateUrl: "./createbeer.component.html",
   styleUrls: ["./createbeer.component.css"]
 })
+
 export class CreatebeerComponent implements OnInit{
-  public beersList:Beer[] = [];
+  private beersList:Beer[] = [];
 
   constructor(){}
 
   ngOnInit():void{}
 
-  createBeer(formCreate:NgForm):void{
+  public getBeersList():Beer[]{
+    return this.beersList;
+  }
+
+  public createBeer(formCreate:NgForm):void{
     const values:any = formCreate.value;
     const brewname:string = values.brewingname;
     const ogValue:number = values.OG;

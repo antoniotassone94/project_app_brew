@@ -8,13 +8,17 @@ import {NgForm} from "@angular/forms";
 })
 
 export class CalculatorComponent implements OnInit{
-  public resultValue:string = "";
+  private resultValue:string = "";
 
   constructor(){}
 
   ngOnInit():void{}
 
-  calculate(form:NgForm):void{
+  public getResult():string{
+    return this.resultValue;
+  }
+
+  public calculate(form:NgForm):void{
     const values:any = form.value;
     const OGvalue:number = values.OG;
     const FGvalue:number = values.FG;
