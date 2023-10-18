@@ -7,5 +7,5 @@ import {Component} from "@angular/core";
 })
 
 export class MainComponent{
-  title = "project-app-test";
+  public title:string = "project-app-test";
 }

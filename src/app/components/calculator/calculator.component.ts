@@ -12,7 +12,7 @@ export class CalculatorComponent implements OnInit{
 
   constructor(){}
 
-  ngOnInit():void{}
+  public ngOnInit():void{}
 
   public getResult():string{
     return this.resultValue;

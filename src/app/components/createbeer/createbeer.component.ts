@@ -13,7 +13,7 @@ export class CreatebeerComponent implements OnInit{
 
   constructor(){}
 
-  ngOnInit():void{}
+  public ngOnInit():void{}
 
   public getBeersList():Beer[]{
     return this.beersList;

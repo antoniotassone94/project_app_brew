@@ -9,7 +9,7 @@ import {Component,OnInit} from "@angular/core";
 export class SidebarComponent implements OnInit{
   constructor(){}
 
-  ngOnInit():void{}
+  public ngOnInit():void{}
 
   public doLogout():void{
     console.log("function not available.");
