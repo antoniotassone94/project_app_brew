@@ -1,0 +1,9 @@
+<div class="login">
+  <form #loginForm="ngForm" (ngSubmit)="doLogin(loginForm)">
+    <label for="email">E-mail</label>
+    <input type="email" name="email" id="email" ngModel>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" ngModel>
+    <button type="submit" class="btn">Login</button>
+  </form>
+</div>

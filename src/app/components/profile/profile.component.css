@@ -1,0 +1,29 @@
+.profile{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:45px;
+  padding:0;
+  border:none;
+}
+
+.label-profile{
+  font-weight:bold;
+  font-size: 18px;
+}
+
+.btn-profile{
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  color: #fff;
+  background-color: #917941;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn-profile:hover{
+  background-color:  #ae8e45;
+}

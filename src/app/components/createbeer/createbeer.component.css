@@ -36,6 +36,10 @@
   cursor: pointer;
 }
 
+.btn-create:hover{
+  background-color:  #ae8e45;
+}
+
 .list{
   display: flex;
   flex-direction: column;
@@ -45,8 +49,6 @@
   height:auto;
   width: 300px;
   margin: 10px;
-  border-radius: 3px;
-  background-color: #ae8e45;
   color: #f0f0f0;
 }
 

@@ -9,6 +9,12 @@ import {SidebarComponent} from "./components/sidebar/sidebar.component";
 import {CalculatorComponent} from "./components/calculator/calculator.component";
 import {CreatebeerComponent} from "./components/createbeer/createbeer.component";
 import {CardComponent} from "./components/card/card.component";
+import {ProfileComponent} from "./components/profile/profile.component";
+import {ChangepasswordComponent} from "./components/changepassword/changepassword.component";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {LoginComponent} from "./components/login/login.component";
+import {RegisterComponent} from "./components/register/register.component";
+import {HomepageComponent} from "./components/homepage/homepage.component";
 
 @NgModule({
   declarations:[
@@ -17,7 +23,13 @@ import {CardComponent} from "./components/card/card.component";
     SidebarComponent,
     CalculatorComponent,
     CreatebeerComponent,
-    CardComponent
+    CardComponent,
+    ProfileComponent,
+    ChangepasswordComponent,
+    DashboardComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomepageComponent
   ],
   imports:[
     BrowserModule,

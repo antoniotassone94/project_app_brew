@@ -19,13 +19,15 @@ export class CreatebeerComponent implements OnInit{
     return this.beersList;
   }
 
-  public createBeer(formCreate:NgForm):void{
-    const values:any = formCreate.value;
+  public createBeer(form:NgForm):void{
+    const values:any = form.value;
     const brewname:string = values.brewingname;
     const ogValue:number = values.OG;
     const fgValue:number = values.FG;
     const alcohol:number = values.alcohol;
-    const newBeer:Beer = new Beer(brewname,ogValue,fgValue,alcohol);
-    this.beersList.push(newBeer);
+    if(brewname != "" && ogValue > 0 && fgValue > 0 && alcohol > 0){
+      const newBeer:Beer = new Beer(brewname,ogValue,fgValue,alcohol);
+      this.beersList.push(newBeer);
+    }
   }
 }

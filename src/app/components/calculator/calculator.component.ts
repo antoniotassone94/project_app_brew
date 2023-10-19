@@ -22,7 +22,9 @@ export class CalculatorComponent implements OnInit{
     const values:any = form.value;
     const OGvalue:number = values.OG;
     const FGvalue:number = values.FG;
-    const result:string = (((OGvalue - FGvalue) / 7.5) + 0.5).toFixed(1);
-    this.resultValue = result;
+    if(OGvalue > 0 && FGvalue > 0){
+      const result:string = (((OGvalue - FGvalue) / 7.5) + 0.5).toFixed(1);
+      this.resultValue = result;
+    }
   }
 }

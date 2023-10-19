@@ -1,5 +1,5 @@
 <div class="add-content">
-  <form #formCreate="ngForm" (ngSubmit)="createBeer(formCreate)" class="create-content">
+  <form #formCreateBeer="ngForm" (ngSubmit)="createBeer(formCreateBeer)" class="create-content">
     <label for="brewingname">Brewing name</label>
     <input type="text" name="brewingname" id="brewingname" ngModel>
     <label for="OG">Original Gravity (OG)</label>
@@ -10,8 +10,8 @@
     <input type="number" name="alcohol" id="alcohol" ngModel>
     <button type="submit" class="btn-create">Add new beer</button>
   </form>
-  <ul class="list" *ngFor="let beer of getBeersList()">
-    <li>
+  <ul class="list">
+    <li *ngFor="let beer of getBeersList()">
       <app-card [brewingName]="beer.getBrewingName()" [ogValue]="beer.getOGvalue()" [fgValue]="beer.getFGvalue()" [alcohol]="beer.getAlcohol()"></app-card>
     </li>
   </ul>
