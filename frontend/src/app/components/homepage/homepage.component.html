@@ -1,4 +1,10 @@
 <div *ngIf="getLoginView() == true;then viewLoginForm else viewRegisterForm"></div>
 <ng-template #viewLoginForm><app-login></app-login></ng-template>
 <ng-template #viewRegisterForm><app-register></app-register></ng-template>
-<button (click)="switchLoginRegister()">Switch to login/register form</button>
+<div class="switch-login-register">
+  <button (click)="switchLoginRegister()" class="btn-login-register">
+    <span *ngIf="getLoginView();then messageRegister else messageLogin"></span>
+    <ng-template #messageRegister>{{getMessage1()}}</ng-template>
+    <ng-template #messageLogin>{{getMessage2()}}</ng-template>
+  </button>
+</div>
