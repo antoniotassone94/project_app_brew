@@ -14,7 +14,7 @@ form{
 }
 
 input{
-  width: 50%;
+  width: 30%;
   height: 35px;
   background-color: transparent;
   border: 1px solid #000;
@@ -25,17 +25,23 @@ input{
 }
 
 .btn{
-  width: 15%;
-  height: 40px;
-  margin: 30px;
+  width: 30%;
+  height: 50px;
+  margin-top: 30px;
   border: none;
-  border-radius: 3px;
-  font-size: 15px;
+  border-radius: 15px;
+  font-size: 16px;
   background-color: #917941;
   color: #fff;
   cursor: pointer;
 }
 
+.btn:hover{
+  background-color:  #ae8e45;
+}
+
 form label{
   margin-top: 10px;
+  font-weight:bold;
+  font-size:18px;
 }
