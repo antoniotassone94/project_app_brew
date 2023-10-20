@@ -38,5 +38,5 @@ frontend/testem.log
 /frontend/typings
 
 # System files
-.DS_Store
-Thumbs.db
+frontend/.DS_Store
+frontend/Thumbs.db
