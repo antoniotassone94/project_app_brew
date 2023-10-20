@@ -56,7 +56,6 @@ auth.post("/login", async (req, res) => {
     return res.status(201).send({
         msg: `Hello ${user?.name}`,
         accessToken: token,
-
     })
 })
 
