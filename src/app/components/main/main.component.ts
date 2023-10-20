@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component,OnInit} from "@angular/core";
 
 @Component({
   selector: "app-main",
@@ -6,6 +6,8 @@ import {Component} from "@angular/core";
   styleUrls: ["./main.component.css"]
 })
 
-export class MainComponent{
-  public title:string = "project-app-test";
+export class MainComponent implements OnInit{
+  constructor(){}
+
+  public ngOnInit():void{}
 }
