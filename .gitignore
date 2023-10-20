@@ -8,8 +8,14 @@
 
 # Node
 /node_modules
+/frontend/node_modules
+/backend/node_modules
 npm-debug.log
+frontend/npm-debug.log
+backend/npm-debug.log
 yarn-error.log
+frontend/yarn-error.log
+backend/yarn-error.log
 
 # IDEs and editors
 frontend/.idea/
@@ -39,4 +45,8 @@ frontend/testem.log
 
 # System files
 frontend/.DS_Store
+backend/.DS_Store
+.DS_Store
 frontend/Thumbs.db
+backend/Thumbs.db
+Thumbs.db
