@@ -4,13 +4,16 @@ import {CalculatorComponent} from "./components/calculator/calculator.component"
 import {CreatebeerComponent} from "./components/createbeer/createbeer.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ChangepasswordComponent} from "./components/changepassword/changepassword.component";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {AuthGuard} from "./services/auth.guard";
 
 const routes: Routes = [
-  {path:"calculator",component:CalculatorComponent},
-  {path:"brewingList",component:CreatebeerComponent},
+  {path:"dashboard",component:DashboardComponent,canActivate:[AuthGuard]},
+  {path:"calculator",component:CalculatorComponent,canActivate:[AuthGuard]},
+  {path:"brewingList",component:CreatebeerComponent,canActivate:[AuthGuard]},
   {path:"profile",component:ProfileComponent,children:[
     {path:"changepassword",component:ChangepasswordComponent}
-  ]}
+  ],canActivate:[AuthGuard],canActivateChild:[AuthGuard]}
 ];
 
 @NgModule({

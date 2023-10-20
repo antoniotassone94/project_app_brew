@@ -1,12 +1,14 @@
 import express from "express";
-import { prisma } from "./prisma";
-import { User } from "@prisma/client";
-import { compareSync, hashSync } from "bcrypt";
-import jwt from 'jsonwebtoken';
-import { getJwtKeys } from "./key";
-import { PassThrough } from "stream";
+import {prisma} from "./prisma";
+import {User} from "@prisma/client";
+import {compareSync,hashSync} from "bcrypt";
+import jwt from "jsonwebtoken";
+import {getJwtKeys} from "./key";
+import {PassThrough} from "stream";
+import cors from "cors"
 
 const auth = express();
+auth.use(cors())
 auth.use(express.json())
 
 
@@ -29,26 +31,26 @@ async function verifyUser(email: string, password: string): Promise<User | null>
 
 function getExpTime(min: number) {
     const now = Math.trunc(new Date().getTime() / 1000);
-    return now + min * 10;
+    return now + min;
 }
 
 async function generateJwt(user: User | null): Promise<string> {
     const payload = {
-        aud: 'access',
-        exp: getExpTime(2 * 60),
+        aud: "access",
+        exp: getExpTime(60),
         id: user!.id,
         email: user!.email
     }
     const { privateKey } = await getJwtKeys();
-    return jwt.sign(payload, privateKey, { algorithm: 'RS256' })
+    return jwt.sign(payload, privateKey, {algorithm:"RS256"})
 }
 
 
-auth.post('/login', async (req, res) => {
+auth.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await verifyUser(email, password)
     if (!user) {
-        return res.status(403).send({ msg: 'Invalid authentication' })
+        return res.status(403).send({msg:"Invalid authentication"})
     }
     const token = await generateJwt(user);
     return res.status(201).send({
@@ -59,7 +61,7 @@ auth.post('/login', async (req, res) => {
 })
 
 
-auth.post('/register', async (req, res) => {
+auth.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
     const passwordHash = hashSync(password, 5);
     let user: User;
@@ -73,19 +75,18 @@ auth.post('/register', async (req, res) => {
         })
         return res.status(201).send(user)
     } catch {
-        return res.status(401).send({ mag: 'Cannot create user' })
+        return res.status(401).send({msg:"Cannot create user"})
     }
 })
 
 
-auth.get('/user', async (req, res) => {
+auth.get("/user", async (req, res) => {
     try {
         const user = await prisma.user.findMany()
         return res.status(200).send(user)
     } catch {
-        return res.status(404).send({ msg: 'Cannot find user' })
+        return res.status(404).send({msg:"Cannot find user"})
     }
 })
 
-
-export { auth }
+export {auth}

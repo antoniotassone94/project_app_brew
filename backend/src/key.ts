@@ -1,7 +1,5 @@
-import { generateKeyPairSync } from "crypto";
-import { prisma} from "./prisma";
-
-
+import {generateKeyPairSync} from "crypto";
+import {prisma} from "./prisma";
 
 export interface JwtKeys {
     privateKey: string;

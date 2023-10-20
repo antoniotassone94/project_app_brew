@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
 import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 import {MainComponent} from "./components/main/main.component";
 import {NavbarComponent} from "./components/navbar/navbar.component";
 import {SidebarComponent} from "./components/sidebar/sidebar.component";
@@ -35,7 +36,8 @@ import {HomepageComponent} from "./components/homepage/homepage.component";
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers:[],
   bootstrap:[MainComponent]
