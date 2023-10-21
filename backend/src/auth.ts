@@ -11,7 +11,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const auth:Router = express.Router();
 
-// Function for verification email and password user
+//Function for verification email and password user
 async function verifyUser(email:string,password:string):Promise<User|false>{
     const user:User|null = await prisma.user.findUnique({
         where: {
