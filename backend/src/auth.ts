@@ -4,10 +4,8 @@ import { JwtKey, User } from "@prisma/client";
 import { compareSync, hashSync } from "bcrypt";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { getJwtKeys } from "./key";
-import cors from "cors"
-import dotenv from "dotenv";
 
-const auth:Router = express.Router();
+const auth: Router = express.Router();
 
 // Function for verification email and password user
 async function verifyUser(email: string, password: string): Promise<User | false> {
@@ -30,9 +28,9 @@ function getExpirationTime(minutes: number): number {
     return now + (minutes * 60);
 }
 
-function checkJwt(accessToken:string,token:JwtKey):boolean{
-    const payload:string|jwt.JwtPayload = jwt.verify(accessToken,token.privateKey);
-    if(!payload){
+function checkJwt(accessToken: string, token: JwtKey): boolean {
+    const payload: string | jwt.JwtPayload = jwt.verify(accessToken, token.privateKey);
+    if (!payload) {
         return true;
     }
     return false;
@@ -46,8 +44,8 @@ async function generateJwt(user: User): Promise<string> {
         userId: user.id,
         email: user.email
     }
-    const {privateKey} = await getJwtKeys();
-    return jwt.sign(payload,privateKey,{algorithm:"RS256"});
+    const { privateKey } = await getJwtKeys(payload.userId);
+    return jwt.sign(payload, privateKey, { algorithm: "RS256" });
 }
 
 auth.post("/login", async (req, res) => {
@@ -75,8 +73,8 @@ auth.post("/register", async (req, res) => {
                 email: email,
                 password: passwordHash
             },
-            include:{
-                jwtKey:true
+            include: {
+                jwtKey: true
             }
         });
         return res.status(201).send({ user: user, message: "User created correctly.", check: true });
@@ -94,11 +92,11 @@ auth.get("/users", async (req, res) => {
     }
 })
 
-auth.post("/user",async(req,res) => {
-    const {accessToken} = req.body;
-    const payload:string|JwtPayload = checkJwt(accessToken);
-    if(!payload){
-        return res.status(401).send({message:"Token not valid",check:false});
+auth.post("/user", async (req, res) => {
+    const { accessToken } = req.body;
+    const payload: string | JwtPayload = checkJwt(accessToken);
+    if (!payload) {
+        return res.status(401).send({ message: "Token not valid", check: false });
     }
 
     console.log(payload);
@@ -114,7 +112,7 @@ auth.post("/user",async(req,res) => {
         }
     });
     if(!user){*/
-        return res.status(401).send({message:"User not valid",check:false});
+    return res.status(401).send({ message: "User not valid", check: false });
     /*}
     return res.status(200).send({user:user,check:true});*/
 })
