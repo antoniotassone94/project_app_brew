@@ -4,7 +4,6 @@ import {User} from "@prisma/client";
 import {compareSync,hashSync} from "bcrypt";
 import jwt from "jsonwebtoken";
 import {getJwtKeys} from "./key";
-import {PassThrough} from "stream";
 import cors from "cors"
 
 const auth = express();
