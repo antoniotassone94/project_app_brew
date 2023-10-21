@@ -1,6 +1,9 @@
 import {KeyPairSyncResult,generateKeyPairSync} from "crypto";
 import {prisma} from "./prisma";
 import {JwtKey} from "@prisma/client";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export interface JwtKeyInterface{
     privateKey: string;
@@ -22,14 +25,19 @@ function generateKeys():JwtKeyInterface{
     return keys;
 }
 
-export async function getJwtKeys():Promise<JwtKey>{
-    let keys:JwtKey|null = await prisma.jwtKey.findFirst();
+export async function getJwtKeys(userId:string):Promise<JwtKey>{
+    let keys:JwtKey|null = await prisma.jwtKey.findUnique({
+        where:{
+            userId:userId
+        }
+    });
     if(!keys){
         const genKeys:JwtKeyInterface = generateKeys();
         keys = await prisma.jwtKey.create({
             data: {
                 publicKey: genKeys.publicKey,
-                privateKey: genKeys.privateKey
+                privateKey: <string>process.env.JWT_PRIVATE,
+                userId:userId
             }
         });
     }

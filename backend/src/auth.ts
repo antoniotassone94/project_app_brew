@@ -6,7 +6,9 @@ import jwt,{JwtPayload} from "jsonwebtoken";
 import {getJwtKeys} from "./key";
 import {PassThrough} from "stream";
 import cors from "cors"
+import dotenv from "dotenv";
 
+dotenv.config();
 const auth:Router = express.Router();
 
 // Function for verification email and password user
@@ -30,12 +32,8 @@ function getExpirationTime(minutes:number):number{
     return now + (minutes * 60);
 }
 
-function checkJwt(accessToken:string,token:JwtKey):boolean{
-    const payload:string|jwt.JwtPayload = jwt.verify(accessToken,token.privateKey);
-    if(!payload){
-        return true;
-    }
-    return false;
+function checkJwt(accessToken:string):string|jwt.JwtPayload{
+    return jwt.verify(accessToken,<string>process.env.JWT_PRIVATE);
 }
 
 async function generateJwt(user:User):Promise<string>{
@@ -46,8 +44,8 @@ async function generateJwt(user:User):Promise<string>{
         userId:user.id,
         email:user.email
     }
-    const {privateKey} = await getJwtKeys();
-    return jwt.sign(payload,privateKey,{algorithm:"RS256"});
+    const {privateKey} = await getJwtKeys(user.id);
+    return jwt.sign(payload,privateKey,{algorithm:"HS256"});
 }
 
 auth.post("/login", async(req,res) => {
@@ -74,6 +72,9 @@ auth.post("/register", async(req,res) => {
                 name: name,
                 email: email,
                 password: passwordHash
+            },
+            include:{
+                jwtKey:true
             }
         });
         return res.status(201).send({user:user,message:"User created correctly.",check:true});
@@ -89,6 +90,31 @@ auth.get("/users", async(req,res) => {
     }catch{
         return res.status(404).send({message:"User not found.",check:false});
     }
+})
+
+auth.post("/user",async(req,res) => {
+    const {accessToken} = req.body;
+    const payload:string|JwtPayload = checkJwt(accessToken);
+    if(!payload){
+        return res.status(401).send({message:"Token not valid",check:false});
+    }
+
+    console.log(payload);
+
+
+    /*const payloadString:string = payload.toString();
+    const position1:number = payloadString.indexOf("sub");
+    const position2:number = payloadString.indexOf("email");
+    const userId:string = payloadString.substring(position1,position2);*/
+    /*const user:User|null = await prisma.user.findUnique({
+        where:{
+            id:userId
+        }
+    });
+    if(!user){*/
+        return res.status(401).send({message:"User not valid",check:false});
+    /*}
+    return res.status(200).send({user:user,check:true});*/
 })
 
 export {auth}
