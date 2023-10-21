@@ -10,7 +10,9 @@ import {AuthService} from "src/app/services/auth.service";
 export class MainComponent implements OnInit{
   constructor(private authService:AuthService){}
 
-  public ngOnInit():void{}
+  public ngOnInit():void{
+    localStorage.removeItem("accessToken");
+  }
 
   public isLogged():boolean{
     return this.authService.isLogged();
