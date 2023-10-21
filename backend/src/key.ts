@@ -1,39 +1,37 @@
-import {generateKeyPairSync} from "crypto";
+import {KeyPairSyncResult,generateKeyPairSync} from "crypto";
 import {prisma} from "./prisma";
+import {JwtKey} from "@prisma/client";
 
-export interface JwtKeys {
+export interface JwtKeyInterface{
     privateKey: string;
     publicKey: string;
 }
 
-function generateKeys(): JwtKeys {
-    const keys = generateKeyPairSync('rsa', {
+function generateKeys():JwtKeyInterface{
+    const keys:KeyPairSyncResult<string,string> = generateKeyPairSync('rsa', {
         modulusLength: 4096,
         publicKeyEncoding: {
-            type: 'spki',
-            format: 'pem'
+            type:"spki",
+            format:"pem"
         },
         privateKeyEncoding: {
-            type: 'pkcs8',
-            format: 'pem'
+            type:"pkcs8",
+            format:"pem"
         },
     });
     return keys;
 }
 
-export async function getJwtKeys(): Promise<JwtKeys> {
-    let keys = await prisma.jwtKey.findFirst();
-    if (!keys) {
-        const genKeys = generateKeys();
+export async function getJwtKeys():Promise<JwtKey>{
+    let keys:JwtKey|null = await prisma.jwtKey.findFirst();
+    if(!keys){
+        const genKeys:JwtKeyInterface = generateKeys();
         keys = await prisma.jwtKey.create({
             data: {
                 publicKey: genKeys.publicKey,
                 privateKey: genKeys.privateKey
-            },
+            }
         });
-    };
-    return {
-        privateKey: keys.privateKey,
-        publicKey: keys.publicKey
     }
+    return keys;
 }

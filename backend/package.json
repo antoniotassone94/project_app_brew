@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/server.ts"
   },
-  "author": "Antonio Tassone e Rafael Merlotto",
+  "author": "Antonio Tassone and Rafael Merlotto",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.3.1",
