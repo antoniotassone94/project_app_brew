@@ -98,23 +98,16 @@ auth.post("/user",async(req,res) => {
     if(!payload){
         return res.status(401).send({message:"Token not valid",check:false});
     }
-
-    console.log(payload);
-
-
-    /*const payloadString:string = payload.toString();
-    const position1:number = payloadString.indexOf("sub");
-    const position2:number = payloadString.indexOf("email");
-    const userId:string = payloadString.substring(position1,position2);*/
-    /*const user:User|null = await prisma.user.findUnique({
+    const userId:string = (<JwtPayload>payload).userId;
+    const user:User|null = await prisma.user.findUnique({
         where:{
             id:userId
         }
     });
-    if(!user){*/
+    if(!user){
         return res.status(401).send({message:"User not valid",check:false});
-    /*}
-    return res.status(200).send({user:user,check:true});*/
+    }
+    return res.status(200).send({name:user.name,email:user.email,check:true});
 })
 
 export {auth}
