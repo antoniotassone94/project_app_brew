@@ -1,6 +1,10 @@
 <div class="profile">
-  <span class="label-profile">Name:</span><br>
-  <span class="label-profile">E-mail:</span><br>
+  <span class="profile-data">
+    <span class="label-profile">Name:</span>&nbsp;{{getName()}}<br>
+  </span>
+  <span class="profile-data">
+    <span class="label-profile">E-mail:</span>&nbsp;{{getEmail()}}<br>
+  </span>
   <button class="btn-profile" routerLink="changepassword">Change password</button>
 </div>
 <router-outlet></router-outlet>

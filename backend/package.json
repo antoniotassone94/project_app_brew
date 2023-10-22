@@ -4,7 +4,6 @@
   "description": "backend for the application.",
   "main": "src/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/server.ts"
   },
   "author": "Antonio Tassone and Rafael Merlotto",

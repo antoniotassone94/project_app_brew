@@ -1,4 +1,8 @@
+import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {AuthService} from "src/app/services/auth.service";
+import {HttprequestService} from "src/app/services/httprequest.service";
 
 @Component({
   selector: "app-profile",
@@ -7,7 +11,32 @@ import {Component,OnInit} from "@angular/core";
 })
 
 export class ProfileComponent implements OnInit{
-  constructor(){}
+  private name:string = "";
+  private email:string = "";
 
-  public ngOnInit():void{}
+  constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router){}
+
+  public getName():string{
+    return this.name;
+  }
+
+  public getEmail():string{
+    return this.email;
+  }
+
+  public ngOnInit():void{
+    const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
+    this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
+      next: (response:any) => {
+        this.name = response.name;
+        this.email = response.email;
+      },
+      error: (error:HttpErrorResponse) => {
+        const errorMessage:string = error.statusText + " (" + error.status + ")";
+        console.error(errorMessage);
+        this.authService.logout();
+        this.router.navigate([""]);
+      }
+    });
+  }
 }

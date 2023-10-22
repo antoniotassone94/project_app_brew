@@ -1,17 +1,14 @@
 import express,{Router} from "express";
 import {prisma} from "./prisma";
-import {JwtKey,User} from "@prisma/client";
+import {User} from "@prisma/client";
 import {compareSync,hashSync} from "bcrypt";
 import jwt,{JwtPayload} from "jsonwebtoken";
 import {getJwtKeys} from "./key";
-import {PassThrough} from "stream";
-import cors from "cors"
 import dotenv from "dotenv";
 
 dotenv.config();
 const auth:Router = express.Router();
 
-// Function for verification email and password user
 async function verifyUser(email:string,password:string):Promise<User|false>{
     const user:User|null = await prisma.user.findUnique({
         where: {
@@ -65,9 +62,8 @@ auth.post("/login", async(req,res) => {
 auth.post("/register", async(req,res) => {
     const {name,email,password} = req.body;
     const passwordHash:string = hashSync(password,5);
-    let user:User;
     try{
-        user = await prisma.user.create({
+        const user:User = await prisma.user.create({
             data: {
                 name: name,
                 email: email,
@@ -108,6 +104,32 @@ auth.post("/user",async(req,res) => {
         return res.status(401).send({message:"User not valid",check:false});
     }
     return res.status(200).send({name:user.name,email:user.email,check:true});
+})
+
+auth.post("/changepassword",async(req,res) => {
+    const {accessToken,newPassword,repeatPassword} = req.body;
+    const payload:string|JwtPayload = checkJwt(accessToken);
+    if(!payload){
+        return res.status(401).send({message:"Token not valid",check:false});
+    }
+    const userId:string = (<JwtPayload>payload).userId;
+    const passwordHash:string = hashSync(newPassword,5);
+
+    //return an error (codice provvisorio)
+    return res.status(500).send({message:"Error while change the password.",check:false});
+
+    /*const user = prisma.user.update({
+        where:{
+            id:userId
+        },
+        data:{
+            password:passwordHash
+        }
+    });
+    if(!user){
+        return res.status(500).send({message:"Error while change the password.",check:false});
+    }
+    return res.status(200).send({message:"Password of the user changed correctly.",check:true});*/
 })
 
 export {auth}

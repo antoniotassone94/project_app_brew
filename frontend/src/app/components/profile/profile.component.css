@@ -8,6 +8,13 @@
   border:none;
 }
 
+.profile-data{
+  display:flex;
+  flex-direction:row;
+  margin-top:3px;
+  margin-bottom:3px;
+}
+
 .label-profile{
   font-weight:bold;
   font-size: 18px;

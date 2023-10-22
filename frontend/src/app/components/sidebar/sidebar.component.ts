@@ -11,23 +11,26 @@ import {HttprequestService} from "src/app/services/httprequest.service";
 })
 
 export class SidebarComponent implements OnInit{
-  private username:string = "";
+  private email:string = "";
 
   constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router){}
 
   public ngOnInit():void{
-    this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",{accessToken:localStorage.getItem("accessToken")}).subscribe({
+    const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
+    this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
       next: (response:any) => {
-        this.username = response.email;
+        this.email = response.email;
       },
       error: (error:HttpErrorResponse) => {
-        this.username = error.statusText + " (" + error.status + ")";
+        const errorMessage:string = error.statusText + " (" + error.status + ")";
+        console.error(errorMessage);
+        this.doLogout();
       }
     });
   }
 
-  public getUsername():string{
-    return this.username;
+  public getEmail():string{
+    return this.email;
   }
 
   public doLogout():void{
