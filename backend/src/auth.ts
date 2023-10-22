@@ -1,6 +1,6 @@
 import express,{Router} from "express";
 import {prisma} from "./prisma";
-import {User} from "@prisma/client";
+import {JwtKey,User} from "@prisma/client";
 import {compareSync,hashSync} from "bcrypt";
 import jwt,{JwtPayload} from "jsonwebtoken";
 import {getJwtKeys} from "./key";
@@ -76,15 +76,6 @@ auth.post("/register", async(req,res) => {
         return res.status(201).send({user:user,message:"User created correctly.",check:true});
     }catch{
         return res.status(401).send({message:"Error while creating the user.",check:false});
-    }
-})
-
-auth.get("/users", async(req,res) => {
-    try{
-        const users:User[] = await prisma.user.findMany();
-        return res.status(200).send({users:users,check:true});
-    }catch{
-        return res.status(404).send({message:"User not found.",check:false});
     }
 })
 
