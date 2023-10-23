@@ -29,8 +29,15 @@ function getExpirationTime(minutes:number):number{
     return now + (minutes * 60);
 }
 
-function checkJwt(accessToken:string):string|jwt.JwtPayload{
-    return jwt.verify(accessToken,<string>process.env.JWT_PRIVATE);
+function checkJwt(accessToken:string):JwtPayload|null{
+    const payload:string|JwtPayload = jwt.verify(accessToken,<string>process.env.JWT_PRIVATE);
+    if(!payload){
+        return null;
+    }
+    if(typeof payload === "string"){
+        return null;
+    }
+    return <JwtPayload>payload;
 }
 
 async function generateJwt(user:User):Promise<string>{
@@ -99,11 +106,11 @@ auth.post("/user",async(req,res) => {
     if(accessToken == ""){
         return res.status(400).send({message:"Bad request, field is empty.",check:false});
     }
-    const payload:string|JwtPayload = checkJwt(accessToken);
+    const payload:JwtPayload|null = checkJwt(accessToken);
     if(!payload){
         return res.status(401).send({message:"Token not valid",check:false});
     }
-    const userId:string = (<JwtPayload>payload).userId;
+    const userId:string = payload.userId;
     const user:User|null = await prisma.user.findUnique({
         where:{
             id:userId
@@ -126,16 +133,15 @@ auth.post("/changepassword",async(req,res) => {
     if(newPassword != repeatPassword){
         return res.status(400).send({message:"Bad request, newPassword and repeatPassword are different.",check:false});
     }
-
-    const payload:string|JwtPayload = checkJwt(accessToken);
+    const payload:JwtPayload|null = checkJwt(accessToken);
     if(!payload){
         return res.status(401).send({message:"Token not valid",check:false});
     }
-    const userId:string = (<JwtPayload>payload).userId;
+    const userId:string = payload.userId;
     const passwordHash:string = hashSync(newPassword,5);
 
     //return an error (codice provvisorio)
-    return res.status(500).send({message:"Error while change the password.",check:false});
+    return res.status(500).send({message:"Internal server error.",check:false});
 
     /*const user = prisma.user.update({
         where:{
@@ -146,7 +152,7 @@ auth.post("/changepassword",async(req,res) => {
         }
     });
     if(!user){
-        return res.status(500).send({message:"Error while change the password.",check:false});
+        return res.status(500).send({message:"Internal server error.",check:false});
     }
     return res.status(200).send({message:"Password of the user changed correctly.",check:true});*/
 })
