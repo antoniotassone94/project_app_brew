@@ -68,10 +68,10 @@ auth.post("/login", async(req,res) => {
 auth.post("/register", async(req,res) => {
     const {name,email,password} = req.body;
     if(!name || !email || !password){
-        return res.status(406).send({message:"Invalid authentication.",check:false});
+        return res.status(406).send({message:"Missing required fields.",check:false});
     }
     if(name == "" || email == "" || password == ""){
-        return res.status(400).send({message:"Invalid authentication.",check:false});
+        return res.status(400).send({message:"Bad request, some fields are empty.",check:false});
     }
     const passwordHash:string = hashSync(password,5);
     try{
@@ -94,10 +94,10 @@ auth.post("/register", async(req,res) => {
 auth.post("/user",async(req,res) => {
     const {accessToken} = req.body;
     if(!accessToken){
-        return res.status(406).send({message:"Invalid authentication.",check:false});
+        return res.status(406).send({message:"Missing required field.",check:false});
     }
     if(accessToken == ""){
-        return res.status(400).send({message:"Invalid authentication.",check:false});
+        return res.status(400).send({message:"Bad request, field is empty.",check:false});
     }
     const payload:string|JwtPayload = checkJwt(accessToken);
     if(!payload){
