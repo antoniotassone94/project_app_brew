@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
     this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
       next: (response:any) => {
-        this.email = response.email;
+        this.email = response.name;
       },
       error: (error:HttpErrorResponse) => {
         const errorMessage:string = error.statusText + " (" + error.status + ")";
