@@ -143,11 +143,7 @@ auth.post("/changepassword",async(req,res) => {
     }
     const userId:string = payload.userId;
     const passwordHash:string = hashSync(newPassword,5);
-
-    //return an error (codice provvisorio)
-    return res.status(500).send({message:"Internal server error.",check:false});
-
-    /*const user = prisma.user.update({
+    const user:User|null = await prisma.user.update({
         where:{
             id:userId
         },
@@ -158,7 +154,11 @@ auth.post("/changepassword",async(req,res) => {
     if(!user){
         return res.status(500).send({message:"Internal server error.",check:false});
     }
-    return res.status(200).send({message:"Password of the user changed correctly.",check:true});*/
+    return res.status(200).send({message:"Password of the user changed correctly.",check:true});
+})
+
+auth.post("/uploadavatar",(req,res) => {
+    return res.status(500).send({message:"Internal server error",check:false});
 })
 
 export {auth}

@@ -34,3 +34,9 @@
 .btn-profile:hover{
   background-color:  #ae8e45;
 }
+
+.buttons-grid{
+  display: flex;
+  flex-direction: row;
+  gap:20px;
+}

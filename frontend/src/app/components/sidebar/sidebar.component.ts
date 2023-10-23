@@ -11,7 +11,7 @@ import {HttprequestService} from "src/app/services/httprequest.service";
 })
 
 export class SidebarComponent implements OnInit{
-  private email:string = "";
+  private nameSidebar:string = "";
 
   constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router){}
 
@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
     this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
       next: (response:any) => {
-        this.email = response.name;
+        this.nameSidebar = response.name;
       },
       error: (error:HttpErrorResponse) => {
         const errorMessage:string = error.statusText + " (" + error.status + ")";
@@ -29,8 +29,8 @@ export class SidebarComponent implements OnInit{
     });
   }
 
-  public getEmail():string{
-    return this.email;
+  public getNameSidebar():string{
+    return this.nameSidebar;
   }
 
   public doLogout():void{
