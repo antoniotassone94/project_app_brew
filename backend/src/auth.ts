@@ -30,14 +30,18 @@ function getExpirationTime(minutes:number):number{
 }
 
 function checkJwt(accessToken:string):JwtPayload|null{
-    const payload:string|JwtPayload = jwt.verify(accessToken,<string>process.env.JWT_PRIVATE);
-    if(!payload){
+    try{
+        const payload:string|JwtPayload = jwt.verify(accessToken,<string>process.env.JWT_PRIVATE);
+        if(!payload){
+            return null;
+        }
+        if(typeof payload === "string"){
+            return null;
+        }
+        return <JwtPayload>payload;
+    }catch(error){
         return null;
     }
-    if(typeof payload === "string"){
-        return null;
-    }
-    return <JwtPayload>payload;
 }
 
 async function generateJwt(user:User):Promise<string>{
