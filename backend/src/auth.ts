@@ -53,7 +53,7 @@ auth.post("/login", async(req,res) => {
     }
     const token:string = await generateJwt(user);
     return res.status(200).send({
-        message: `Hello ${user.name}`,
+        message:"User login done.",
         check:true,
         accessToken:token,
     })
@@ -73,9 +73,9 @@ auth.post("/register", async(req,res) => {
                 jwtKey:true
             }
         });
-        return res.status(201).send({user:user,message:"User created correctly.",check:true});
+        return res.status(201).send({message:"User created correctly.",check:true});
     }catch{
-        return res.status(401).send({message:"Error while creating the user.",check:false});
+        return res.status(401).send({message:"User registration error.",check:false});
     }
 })
 
