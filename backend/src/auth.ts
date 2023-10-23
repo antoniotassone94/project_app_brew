@@ -47,6 +47,12 @@ async function generateJwt(user:User):Promise<string>{
 
 auth.post("/login", async(req,res) => {
     const {email,password} = req.body;
+    if(!email || !password){
+        return res.status(406).send({message:"Invalid authentication.",check:false});
+    }
+    if(email == "" || password == ""){
+        return res.status(400).send({message:"Invalid authentication.",check:false});
+    }
     const user:User|false = await verifyUser(email,password);
     if(!user){
         return res.status(403).send({message:"Invalid authentication.",check:false});
@@ -61,6 +67,12 @@ auth.post("/login", async(req,res) => {
 
 auth.post("/register", async(req,res) => {
     const {name,email,password} = req.body;
+    if(!name || !email || !password){
+        return res.status(406).send({message:"Invalid authentication.",check:false});
+    }
+    if(name == "" || email == "" || password == ""){
+        return res.status(400).send({message:"Invalid authentication.",check:false});
+    }
     const passwordHash:string = hashSync(password,5);
     try{
         const user:User = await prisma.user.create({
@@ -81,6 +93,12 @@ auth.post("/register", async(req,res) => {
 
 auth.post("/user",async(req,res) => {
     const {accessToken} = req.body;
+    if(!accessToken){
+        return res.status(406).send({message:"Invalid authentication.",check:false});
+    }
+    if(accessToken == ""){
+        return res.status(400).send({message:"Invalid authentication.",check:false});
+    }
     const payload:string|JwtPayload = checkJwt(accessToken);
     if(!payload){
         return res.status(401).send({message:"Token not valid",check:false});
@@ -99,6 +117,16 @@ auth.post("/user",async(req,res) => {
 
 auth.post("/changepassword",async(req,res) => {
     const {accessToken,newPassword,repeatPassword} = req.body;
+    if(!accessToken || !newPassword || !repeatPassword){
+        return res.status(406).send({message:"Missing required fields.",check:false});
+    }
+    if(accessToken == "" || newPassword == "" || repeatPassword == ""){
+        return res.status(400).send({message:"Bad request, some fields are empty.",check:false});
+    }
+    if(newPassword != repeatPassword){
+        return res.status(400).send({message:"Bad request, newPassword and repeatPassword are different.",check:false});
+    }
+
     const payload:string|JwtPayload = checkJwt(accessToken);
     if(!payload){
         return res.status(401).send({message:"Token not valid",check:false});
