@@ -40,7 +40,7 @@ export class ChangepasswordComponent implements OnInit{
             this.authService.logout();
             this.router.navigate([""]);
           }else{
-            this.message = error.error;
+            this.message = error.error.message;
           }
         }
       });
