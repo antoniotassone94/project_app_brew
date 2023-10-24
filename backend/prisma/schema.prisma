@@ -16,6 +16,16 @@ model User {
   email    String   @unique
   password String
   jwtKey   JwtKey[]
+  avatar Avatar[]
+}
+
+model Avatar {
+  id       String   @id @default(cuid())
+avatar String?
+user       User   @relation(fields: [userId], references: [id])
+  userId     String @unique
+
+  @@unique([id, userId])
 }
 
 model JwtKey {

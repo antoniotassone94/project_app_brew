@@ -47,7 +47,7 @@ export class UploadavatarComponent implements OnInit{
           const errorCode:number = error.status;
           if(errorCode == 401 || errorCode == 403){
             const errorMessage:string = error.statusText + " (" + error.status + ")";
-            console.error(errorMessage);
+            // console.error(errorMessage);
             this.authService.logout();
             this.router.navigate([""]);
           }else{
