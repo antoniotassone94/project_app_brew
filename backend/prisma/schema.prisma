@@ -7,33 +7,23 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
 }
 
 model User {
-  id       String   @id @default(cuid())
-  name     String
-  email    String   @unique
+  id String @id @default(cuid())
+  name String
+  email String @unique
   password String
-  jwtKey   JwtKey[]
-  avatar Avatar[]
-}
-
-model Avatar {
-  id       String   @id @default(cuid())
-avatar String?
-user       User   @relation(fields: [userId], references: [id])
-  userId     String @unique
-
-  @@unique([id, userId])
+  avatar String
+  jwtKey JwtKey[]
 }
 
 model JwtKey {
-  id         Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
   privateKey String
-  publicKey  String
-  user       User   @relation(fields: [userId], references: [id])
-  userId     String @unique
-
-  @@unique([id, userId])
+  publicKey String
+  user User @relation(fields:[userId],references:[id])
+  userId String @unique
+  @@unique([id,userId])
 }

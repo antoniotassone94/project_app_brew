@@ -1,6 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
-import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
 import {HttprequestService} from "src/app/services/httprequest.service";
@@ -31,7 +30,7 @@ export class UploadavatarComponent implements OnInit{
 
   }
 
-  public uploadNow(form:NgForm):void{
+  public uploadNow():void{
     if(this.selectedFile){
       const dataObject:FormData = new FormData();
       dataObject.append("avatar",this.selectedFile);
@@ -47,7 +46,7 @@ export class UploadavatarComponent implements OnInit{
           const errorCode:number = error.status;
           if(errorCode == 401 || errorCode == 403){
             const errorMessage:string = error.statusText + " (" + error.status + ")";
-            // console.error(errorMessage);
+            console.error(errorMessage);
             this.authService.logout();
             this.router.navigate([""]);
           }else{
