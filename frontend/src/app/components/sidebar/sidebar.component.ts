@@ -12,6 +12,7 @@ import {HttprequestService} from "src/app/services/httprequest.service";
 
 export class SidebarComponent implements OnInit{
   private nameSidebar:string = "";
+  private urlAvatar:string = "assets/images/avatar.jpg"; //url dell'avatar di default
 
   constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router){}
 
@@ -20,6 +21,10 @@ export class SidebarComponent implements OnInit{
     this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
       next: (response:any) => {
         this.nameSidebar = response.name;
+        if(response.avatar != ""){ //cambio l'url solo se l'avatar è impostato dall'utente
+          const filename:string = response.avatar;
+          this.urlAvatar = "http://localhost:4000/auth/avatar/" + filename;
+        }
       },
       error: (error:HttpErrorResponse) => {
         const errorMessage:string = error.statusText + " (" + error.status + ")";
@@ -31,6 +36,10 @@ export class SidebarComponent implements OnInit{
 
   public getNameSidebar():string{
     return this.nameSidebar;
+  }
+
+  public getUrlAvatar():string{
+    return this.urlAvatar;
   }
 
   public doLogout():void{

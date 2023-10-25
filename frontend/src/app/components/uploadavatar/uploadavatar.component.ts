@@ -24,10 +24,6 @@ export class UploadavatarComponent implements OnInit{
 
   public updateFileSelected(event:any):void{
     this.selectedFile = event.target.files[0];
-
-    //stampa dell'oggetto file in console (istruzione provvisoria)
-    console.log(this.selectedFile);
-
   }
 
   public uploadNow():void{
@@ -37,9 +33,11 @@ export class UploadavatarComponent implements OnInit{
       dataObject.append("accessToken",<string>localStorage.getItem("accessToken"));
       this.httprequestService.httpPostRequest("http://localhost:4000/auth/uploadavatar",dataObject).subscribe({
         next: (response:any) => {
+          this.message = response.message;
 
-          //stampa della risposta del server in console (istruzione provvisoria)
-          console.log(response);
+          console.log(response.filename);
+          //in questo punto mettere l'aggiornamento dell'immagine sulla sidebar
+
 
         },
         error: (error:HttpErrorResponse) => {

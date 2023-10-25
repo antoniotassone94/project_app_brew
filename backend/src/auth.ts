@@ -5,9 +5,12 @@ import {compareSync,hashSync} from "bcrypt";
 import jwt,{JwtPayload} from "jsonwebtoken";
 import {getJwtKeys} from "./key";
 import dotenv from "dotenv";
+import multer,{Multer} from "multer";
+import fs from "fs";
 
 dotenv.config();
-const auth: Router = express.Router();
+const upload:Multer = multer({dest:"uploads/images/"});
+const auth:Router = express.Router();
 
 async function verifyUser(email:string,password:string):Promise<User|false>{
     const user:User|null = await prisma.user.findUnique({
@@ -173,11 +176,9 @@ auth.post("/changepassword",async(req,res) => {
     return res.status(200).send({message:"Password of the user changed correctly.",check:true});
 })
 
-auth.post("/uploadavatar",async(req,res) => {
-    const {accessToken,avatar} = req.body;
-
-    console.log("typeof avatar: " + typeof avatar,"avatar: " + avatar,"accessToken: " + accessToken);
-
+auth.post("/uploadavatar",upload.single("avatar"),async(req,res) => {
+    const {accessToken} = req.body;
+    const avatar:Express.Multer.File|undefined = req.file;
     if(!accessToken || !avatar){
         return res.status(406).send({message:"Missing required fields.",check:false});
     }
@@ -187,28 +188,46 @@ auth.post("/uploadavatar",async(req,res) => {
     if(accessToken === ""){
         return res.status(400).send({message:"Bad request, field is empty.",check:false});
     }
+    if(!avatar.filename || avatar.filename === ""){
+        return res.status(400).send({message:"The name of the file isn't valid.",check:false});
+    }
+    if(avatar.size <= 0 || avatar.size > 5242880){ //5242880 byte = 5 megabyte
+        return res.status(400).send({message:"The size of the file isn't valid.",check:false});
+    }
+    if(!avatar.mimetype || (avatar.mimetype !== "image/jpg" && avatar.mimetype !== "image/jpeg" && avatar.mimetype !== "image/png")){
+        return res.status(400).send({message:"The type of the file isn't valid.",check:false});
+    }
     const payload:JwtPayload|null = checkJwt(accessToken);
     if(!payload){
         return res.status(401).send({message:"Token not valid",check:false});
     }
     const userId:string = payload.userId;
+    const extension:string = avatar.originalname.substring(avatar.originalname.length - 3);
+    const filename:string = userId + "." + extension;
+    const destinationPath:string = avatar.destination + filename;
+    const sourcePath:string = avatar.path;
+    fs.copyFile(sourcePath,destinationPath,() => {
+        fs.rm(sourcePath,async() => {
+            const user:User|null = await prisma.user.update({
+                where:{
+                    id:userId
+                },
+                data:{
+                    avatar:filename
+                }
+            })
+            if(!user){
+                return res.status(500).send({message:"Internal server error",check:false});
+            }
+            return res.status(200).send({filename:filename,message:"Avatar updated correctly.",check:true});
+        });
+    });
+})
 
-    console.log("userId: " + userId);
-    return res.status(500).send({message:"Internal server error",check:false});
-
-    /*const newAvatar:Avatar|null = await prisma.avatar.create({
-        data:{
-            avatar:avatar,
-            userId:userId
-        },
-        include:{
-            user:true
-        }
-    })
-    if(!newAvatar){
-        return res.status(500).send({message:"Internal server error",check:false});
-    }
-    return res.status(201).send({message:"Avatar created correctly.",check:true});*/
+auth.get("/avatar/:filename",(req,res) => {
+    const {filename} = req.params;
+    const directory:string = __dirname.substring(0,__dirname.length - 3);
+    res.sendFile(directory + "uploads\\images\\" + filename);
 })
 
 export {auth}

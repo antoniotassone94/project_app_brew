@@ -1,6 +1,6 @@
 <form #uploadAvatarForm="ngForm" (ngSubmit)="uploadNow()" class="form-upload-avatar" enctype="multipart/form-data">
   <label for="avatar">Choose a file (*.jpg, *.jpeg, *.png)</label>
   <input type="file" name="avatar" id="avatar" (change)="updateFileSelected($event)" accept="image/jpeg;image/jpg;image/png">
-  <button type="submit" class="btn-avatar">Upload now</button>
+  <button type="submit" class="btn-avatar">Upload now (max size 5 MB)</button>
 </form><br>
 {{getMessage()}}
