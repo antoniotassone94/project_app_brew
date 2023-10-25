@@ -179,26 +179,50 @@ auth.post("/changepassword",async(req,res) => {
 auth.post("/uploadavatar",upload.single("avatar"),async(req,res) => {
     const {accessToken} = req.body;
     const avatar:Express.Multer.File|undefined = req.file;
-    if(!accessToken || !avatar){
+    if(!avatar){
+        return res.status(406).send({message:"Missing required fields.",check:false});
+    }
+    if(!accessToken){
+        fs.rm(avatar.path,() => {
+            console.log("Temporary file deleted.");
+        })
         return res.status(406).send({message:"Missing required fields.",check:false});
     }
     if(typeof accessToken !== "string"){
+        fs.rm(avatar.path,() => {
+            console.log("Temporary file deleted.");
+        })
         return res.status(400).send({message:"Bad request, type of the field is incorrect.",check:false});
     }
     if(accessToken === ""){
+        fs.rm(avatar.path,() => {
+            console.log("Temporary file deleted.");
+        })
         return res.status(400).send({message:"Bad request, field is empty.",check:false});
     }
     if(!avatar.filename || avatar.filename === ""){
+        fs.rm(avatar.path,() => {
+            console.log("Temporary file deleted.");
+        })
         return res.status(400).send({message:"The name of the file isn't valid.",check:false});
     }
     if(avatar.size <= 0 || avatar.size > 5242880){ //5242880 byte = 5 megabyte
+        fs.rm(avatar.path,() => {
+            console.log("Temporary file deleted.");
+        })
         return res.status(400).send({message:"The size of the file isn't valid.",check:false});
     }
     if(!avatar.mimetype || (avatar.mimetype !== "image/jpg" && avatar.mimetype !== "image/jpeg" && avatar.mimetype !== "image/png")){
+        fs.rm(avatar.path,() => {
+            console.log("Temporary file deleted.");
+        })
         return res.status(400).send({message:"The type of the file isn't valid.",check:false});
     }
     const payload:JwtPayload|null = checkJwt(accessToken);
     if(!payload){
+        fs.rm(avatar.path,() => {
+            console.log("Temporary file deleted.");
+        })
         return res.status(401).send({message:"Token not valid",check:false});
     }
     const userId:string = payload.userId;
