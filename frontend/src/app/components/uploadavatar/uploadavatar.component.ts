@@ -3,6 +3,7 @@ import {Component,OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
 import {HttprequestService} from "src/app/services/httprequest.service";
+import {UpdateavatarimageService} from "src/app/services/updateavatarimage.service";
 
 @Component({
   selector: "app-uploadavatar",
@@ -14,7 +15,7 @@ export class UploadavatarComponent implements OnInit{
   private selectedFile:File|null = null;
   private message:string = "";
 
-  constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router){}
+  constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router,private updateImage:UpdateavatarimageService){}
 
   public ngOnInit():void{}
 
@@ -34,11 +35,7 @@ export class UploadavatarComponent implements OnInit{
       this.httprequestService.httpPostRequest("http://localhost:4000/auth/uploadavatar",dataObject).subscribe({
         next: (response:any) => {
           this.message = response.message;
-
-          console.log(response.filename);
-          //in questo punto mettere l'aggiornamento dell'immagine sulla sidebar
-
-
+          this.updateImage.setUrlAvatar(response.filename);
         },
         error: (error:HttpErrorResponse) => {
           const errorCode:number = error.status;

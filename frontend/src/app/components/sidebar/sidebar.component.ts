@@ -3,6 +3,7 @@ import {Component,OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
 import {HttprequestService} from "src/app/services/httprequest.service";
+import {UpdateavatarimageService} from "src/app/services/updateavatarimage.service";
 
 @Component({
   selector: "app-sidebar",
@@ -12,24 +13,25 @@ import {HttprequestService} from "src/app/services/httprequest.service";
 
 export class SidebarComponent implements OnInit{
   private nameSidebar:string = "";
-  private urlAvatar:string = "assets/images/avatar.jpg"; //url dell'avatar di default
+  private urlAvatar:string = "";
 
-  constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router){}
+  constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router,private updateImage:UpdateavatarimageService){}
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
     this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
       next: (response:any) => {
         this.nameSidebar = response.name;
-        if(response.avatar != ""){ //cambio l'url solo se l'avatar è impostato dall'utente
-          const filename:string = response.avatar;
-          this.urlAvatar = "http://localhost:4000/auth/avatar/" + filename;
-        }
       },
       error: (error:HttpErrorResponse) => {
         const errorMessage:string = error.statusText + " (" + error.status + ")";
         console.error(errorMessage);
         this.doLogout();
+      }
+    });
+    this.updateImage.getUrlAvatar().subscribe({
+      next: (value:string) => {
+        this.urlAvatar = value;
       }
     });
   }
