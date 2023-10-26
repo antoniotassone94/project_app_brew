@@ -17,6 +17,9 @@ import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {HomepageComponent} from "./components/homepage/homepage.component";
 import {UploadavatarComponent} from "./components/uploadavatar/uploadavatar.component";
+import {UpdateavatarimageService} from "./services/updateavatarimage.service";
+import {AuthService} from "./services/auth.service";
+import {HttprequestService} from "./services/httprequest.service";
 
 @NgModule({
   declarations:[
@@ -41,7 +44,11 @@ import {UploadavatarComponent} from "./components/uploadavatar/uploadavatar.comp
     FormsModule,
     HttpClientModule
   ],
-  providers:[],
+  providers:[
+    AuthService,
+    HttprequestService,
+    UpdateavatarimageService
+  ],
   bootstrap:[MainComponent]
 })
 
