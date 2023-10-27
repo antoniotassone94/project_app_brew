@@ -3,7 +3,7 @@ import {prisma} from "./prisma";
 import {JwtKey,User} from "@prisma/client";
 import {compareSync,hashSync} from "bcrypt";
 import jwt,{JwtPayload} from "jsonwebtoken";
-import {getJwtKeys} from "./key";
+import {getToken} from "./key";
 import dotenv from "dotenv";
 import multer,{Multer} from "multer";
 import fs from "fs";
@@ -27,13 +27,8 @@ async function verifyUser(email:string,password:string):Promise<User|false>{
     return user;
 }
 
-function getExpirationTime(minutes:number):number{
-    const now: number = Math.trunc(new Date().getTime() / 1000);
-    return now + (minutes * 60);
-}
-
 function checkJwt(accessToken:string):JwtPayload|null{
-    try {
+    try{
         const payload:string|JwtPayload = jwt.verify(accessToken,<string>process.env.JWT_PRIVATE);
         if(!payload){
             return null;
@@ -48,15 +43,8 @@ function checkJwt(accessToken:string):JwtPayload|null{
 }
 
 async function generateJwt(user:User):Promise<string>{
-    const payload = {
-        aud: "access",
-        exp: getExpirationTime(60),
-        sub: user.email,
-        userId: user.id,
-        email: user.email
-    }
-    const {privateKey} = await getJwtKeys(user.id);
-    return jwt.sign(payload,privateKey,{algorithm:"HS256"});
+    const jwtKeys:JwtKey = await getToken(user);
+    return jwtKeys.accessToken;
 }
 
 auth.post("/login",async(req,res) => {
