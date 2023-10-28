@@ -1,12 +1,15 @@
 <div class="sidebar">
   <div class="profile">
-    <img [src]="getUrlAvatar()" alt="Avatar of the user">
+    <div class="container-avatar">
+      <img [src]="getUrlAvatar()" alt="Avatar of the user">
+      <button (click)="deleteAvatar()" class="btn-delete-avatar">X</button>
+    </div>
     <h4>{{getNameSidebar()}}</h4>
   </div>
   <ul>
-    <button routerLink="profile">Profile</button>
-    <button routerLink="calculator">Calculator</button>
-    <button routerLink="brewingList">Brewing list</button>
+    <button routerLink="profile" class="btn-sidebar-menu">Profile</button>
+    <button routerLink="calculator" class="btn-sidebar-menu">Calculator</button>
+    <button routerLink="brewingList" class="btn-sidebar-menu">Brewing list</button>
   </ul>
   <div class="logout">
     <button (click)="doLogout()">Logout</button>

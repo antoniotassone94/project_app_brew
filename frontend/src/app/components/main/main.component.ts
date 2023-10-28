@@ -11,7 +11,7 @@ export class MainComponent implements OnInit{
   constructor(private authService:AuthService){}
 
   public ngOnInit():void{
-    localStorage.removeItem("accessToken");
+    //localStorage.removeItem("accessToken");
   }
 
   public isLogged():boolean{

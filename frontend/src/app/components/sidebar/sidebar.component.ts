@@ -13,7 +13,7 @@ import {UpdateavatarimageService} from "src/app/services/updateavatarimage.servi
 
 export class SidebarComponent implements OnInit{
   private nameSidebar:string = "";
-  private urlAvatar:string = "";
+  private urlAvatar:string = "assets/images/avatar.jpg";
 
   constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router,private updateImage:UpdateavatarimageService){}
 
@@ -47,5 +47,17 @@ export class SidebarComponent implements OnInit{
   public doLogout():void{
     this.authService.logout();
     this.router.navigate([""]);
+  }
+
+  public deleteAvatar():void{
+    const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
+    this.httprequestService.httpPostRequest("http://localhost:4000/auth/deleteavatar",dataObject).subscribe({
+      next: (response:any) => {
+        this.urlAvatar = "assets/images/avatar.jpg";
+      },
+      error: (error:HttpErrorResponse) => {
+        console.error(error);
+      }
+    });
   }
 }
