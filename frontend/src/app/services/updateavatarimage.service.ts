@@ -6,6 +6,7 @@ import {HttprequestService} from "./httprequest.service";
 @Injectable({
   providedIn:"root"
 })
+
 export class UpdateavatarimageService{
   private urlAvatar:BehaviorSubject<string> = new BehaviorSubject<string>("assets/images/avatar.jpg"); //url dell'avatar di default
   private urlObservable:Observable<string> = this.urlAvatar.asObservable();

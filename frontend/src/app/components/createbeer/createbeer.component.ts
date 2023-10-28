@@ -26,7 +26,11 @@ export class CreatebeerComponent implements OnInit{
     const fgValue:number = values.FG;
     const alcohol:number = values.alcohol;
     if(brewname != "" && ogValue > 0 && fgValue > 0 && alcohol > 0){
-      const newBeer:Beer = new Beer(brewname,ogValue,fgValue,alcohol);
+      const newBeer:Beer = new Beer();
+      newBeer.setBrewingName(brewname);
+      newBeer.setOGValue(ogValue);
+      newBeer.setFGValue(fgValue);
+      newBeer.setAlcohol(alcohol);
       this.beersList.push(newBeer);
     }
   }
