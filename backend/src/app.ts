@@ -147,9 +147,9 @@ app.post("/getAll",async(req,res) => {
         }
     });
     if(!beers || beers.length <= 0){
-        return res.status(404).send({message:"Beers not found.",check:false});
+        return res.status(404).send({message:"This user have any beer.",check:false});
     }
-    return res.status(200).send({beers:beers,message:"Beers found.",check:true});
+    return res.status(200).send({beers:beers,message:"Beers sended correctly.",check:true});
 })
 
 export {app}
