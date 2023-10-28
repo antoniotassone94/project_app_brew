@@ -7,6 +7,7 @@ import {getToken} from "./key";
 import dotenv from "dotenv";
 import multer,{Multer} from "multer";
 import fs from "fs";
+import {randomBytes} from "crypto";
 
 dotenv.config();
 const upload:Multer = multer({dest:"uploads/images/"});
@@ -215,9 +216,22 @@ auth.post("/uploadavatar",upload.single("avatar"),async(req,res) => {
     }
     const userId:string = payload.userId;
     const extension:string = avatar.originalname.substring(avatar.originalname.length - 3);
-    const filename:string = userId + "." + extension;
+    const filename:string = randomBytes(32).toString("hex") + "." + extension;
     const destinationPath:string = avatar.destination + filename;
     const sourcePath:string = avatar.path;
+    const user:User|null = await prisma.user.findFirst({
+        where:{
+            id:userId
+        }
+    });
+    if(!user){
+        return res.status(401).send({message:"User not valid.",check:false});
+    }
+    if(user.avatar !== ""){
+        fs.rm("uploads/images/"+user.avatar,() => {
+            console.log("Previous image deleted correctly.");
+        });
+    }
     fs.copyFile(sourcePath,destinationPath,() => {
         fs.rm(sourcePath,async() => {
             const user:User|null = await prisma.user.update({
