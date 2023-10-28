@@ -1,4 +1,5 @@
 <div class="add-content">
+  <span>{{getMessage()}}</span><br><br>
   <form #formCreateBeer="ngForm" (ngSubmit)="createBeer(formCreateBeer)" class="create-content">
     <label for="brewingname">Brewing name</label>
     <input type="text" name="brewingname" id="brewingname" ngModel>
@@ -12,7 +13,14 @@
   </form>
   <ul class="list">
     <li *ngFor="let beer of getBeersList()">
-      <app-card [brewingName]="beer.getBrewingName()" [ogValue]="beer.getOGvalue()" [fgValue]="beer.getFGvalue()" [alcohol]="beer.getAlcohol()"></app-card>
+      <app-card [beerId]="beer.getBeerId()"
+                [brewingName]="beer.getBrewingName()"
+                [ogValue]="beer.getOGvalue()"
+                [fgValue]="beer.getFGvalue()"
+                [alcohol]="beer.getAlcohol()"
+                (message)="printMessage($event)"
+                (checkDelete)="deleteCard($event,beer.getBeerId())">
+      </app-card>
     </li>
   </ul>
 </div>

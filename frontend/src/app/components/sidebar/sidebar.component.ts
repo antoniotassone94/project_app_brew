@@ -56,7 +56,15 @@ export class SidebarComponent implements OnInit{
         this.urlAvatar = "assets/images/avatar.jpg";
       },
       error: (error:HttpErrorResponse) => {
-        console.error(error);
+        const errorCode:number = error.status;
+        if(errorCode == 401 || errorCode == 403){
+          const errorMessage:string = error.statusText + " (" + error.status + ")";
+          console.error(errorMessage);
+          this.authService.logout();
+          this.router.navigate([""]);
+        }else{
+          console.error(error.error.message);
+        }
       }
     });
   }

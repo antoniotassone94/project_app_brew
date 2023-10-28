@@ -92,7 +92,8 @@ auth.post("/register",async(req,res) => {
                 avatar:""
             },
             include:{
-                jwtKey:true
+                jwtKey:true,
+                beer:true
             }
         });
         if(!user){
@@ -300,4 +301,4 @@ auth.post("/deleteavatar",async(req,res) => {
     return res.status(400).send({message:"Avatar already not available for the user.",check:false});
 })
 
-export {auth}
+export {auth,checkJwt}

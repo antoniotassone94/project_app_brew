@@ -12,4 +12,16 @@ export class HttprequestService {
   public httpPostRequest(url:string,body:object):Observable<any>{
     return this.httpClient.post(url,body);
   }
+
+  public httpPutRequest(url:string,body:object):Observable<any>{
+    return this.httpClient.put(url,body);
+  }
+
+  public httpDeleteRequest(url:string,body:object):Observable<any>{
+    return this.httpClient.delete(url,{body:body});
+  }
+
+  public httpPatchRequest(url:string,body:object):Observable<any>{
+    return this.httpClient.patch(url,body);
+  }
 }

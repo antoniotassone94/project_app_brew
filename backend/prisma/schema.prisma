@@ -17,6 +17,7 @@ model User {
   password String
   avatar String
   jwtKey JwtKey[]
+  beer Beer[]
 }
 
 model JwtKey {
@@ -26,5 +27,16 @@ model JwtKey {
   accessToken String
   user User @relation(fields:[userId],references:[id])
   userId String @unique
+  @@unique([id,userId])
+}
+
+model Beer {
+  id String @id @default(cuid())
+  brewingName String
+  ogValue Float
+  fgValue Float
+  alcohol Float
+  user User @relation(fields:[userId],references:[id])
+  userId String
   @@unique([id,userId])
 }

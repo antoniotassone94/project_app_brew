@@ -1,17 +1,17 @@
 import {ComponentFixture,TestBed} from "@angular/core/testing";
-import {CreatebeerComponent} from "./createbeer.component";
+import {BeermanagerComponent} from "./beermanager.component";
 
-describe("CreatebeerComponent", () => {
-  let component: CreatebeerComponent;
-  let fixture: ComponentFixture<CreatebeerComponent>;
+describe("BeermanagerComponent", () => {
+  let component: BeermanagerComponent;
+  let fixture: ComponentFixture<BeermanagerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreatebeerComponent ]
+      declarations: [ BeermanagerComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreatebeerComponent);
+    fixture = TestBed.createComponent(BeermanagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

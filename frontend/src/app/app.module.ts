@@ -8,7 +8,7 @@ import {MainComponent} from "./components/main/main.component";
 import {NavbarComponent} from "./components/navbar/navbar.component";
 import {SidebarComponent} from "./components/sidebar/sidebar.component";
 import {CalculatorComponent} from "./components/calculator/calculator.component";
-import {CreatebeerComponent} from "./components/createbeer/createbeer.component";
+import {BeermanagerComponent} from "./components/beermanager/beermanager.component";
 import {CardComponent} from "./components/card/card.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ChangepasswordComponent} from "./components/changepassword/changepassword.component";
@@ -27,7 +27,7 @@ import {HttprequestService} from "./services/httprequest.service";
     NavbarComponent,
     SidebarComponent,
     CalculatorComponent,
-    CreatebeerComponent,
+    BeermanagerComponent,
     CardComponent,
     ProfileComponent,
     ChangepasswordComponent,
