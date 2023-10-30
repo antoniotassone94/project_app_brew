@@ -1,6 +1,6 @@
 .sidebar{
-  width: auto;
-  height: auto;
+  width: 250px;
+  height: 100%;
   background: url("src/assets/images/hops.jpg")  no-repeat center / cover  ;
 }
 
@@ -11,7 +11,8 @@
 }
 
 .profile img{
-  height: 150px;
+  height: 200px;
+  width: 200px;
   margin-top: 30px;
   border-radius: 100%;
 }
@@ -62,5 +63,7 @@
   font-weight:bold;
   font-size:18pt;
   left:0;
-  width:30%;
+  margin: 40px 0  0 170px ;
+  cursor: pointer;
+  
 }

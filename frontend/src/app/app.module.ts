@@ -20,6 +20,9 @@ import {UploadavatarComponent} from "./components/uploadavatar/uploadavatar.comp
 import {UpdateavatarimageService} from "./services/updateavatarimage.service";
 import {AuthService} from "./services/auth.service";
 import {HttprequestService} from "./services/httprequest.service";
+import {MatDialogModule} from "@angular/material/dialog";
+
+
 
 @NgModule({
   declarations:[
@@ -35,14 +38,17 @@ import {HttprequestService} from "./services/httprequest.service";
     LoginComponent,
     RegisterComponent,
     HomepageComponent,
-    UploadavatarComponent
+    UploadavatarComponent,
+
+  
   ],
   imports:[
     BrowserModule,
     CommonModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
   ],
   providers:[
     AuthService,
