@@ -15,15 +15,14 @@ export class CardComponent implements OnInit{
   @Input() beer:Beer = new Beer();
   @Output() message:EventEmitter<string> = new EventEmitter<string>();
   @Output() checkDelete:EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() checkUpdate:EventEmitter<Beer|false> = new EventEmitter<Beer|false>();
+  @Output() seeUpdate:EventEmitter<Beer> = new EventEmitter<Beer>();
 
   constructor(private authService:AuthService,private router:Router,private httprequest:HttprequestService){}
 
   public ngOnInit():void{}
 
   public updateBeer():void{
-    this.message.emit("Update functionality not implemented.");
-    this.checkUpdate.emit(false);
+    this.seeUpdate.emit(this.beer);
   }
 
   public deleteBeer():void{

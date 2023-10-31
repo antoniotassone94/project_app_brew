@@ -101,7 +101,9 @@ export class BeermanagerComponent implements OnInit{
     this.messageServer = event;
   }
 
-  public updateCard(event:Beer|false):void{}
+  public updateCard(event:Beer):void{
+    console.log(event);
+  }
 
   public deleteCard(event:boolean,beerId:string):void{
     if(event){

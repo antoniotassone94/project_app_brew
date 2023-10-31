@@ -15,7 +15,7 @@
       <app-card [beer]="beer"
                 (message)="printMessage($event)"
                 (checkDelete)="deleteCard($event,beer.getBeerId())"
-                (checkUpdate)="updateCard($event)">
+                (seeUpdate)="updateCard($event)">
       </app-card>
     </li>
   </ul>
