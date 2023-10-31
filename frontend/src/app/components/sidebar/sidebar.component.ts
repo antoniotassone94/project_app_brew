@@ -57,7 +57,7 @@ export class SidebarComponent implements OnInit{
       },
       error: (error:HttpErrorResponse) => {
         const errorCode:number = error.status;
-        if(errorCode == 401 || errorCode == 403){
+        if(errorCode === 401 || errorCode === 403){
           const errorMessage:string = error.statusText + " (" + error.status + ")";
           console.error(errorMessage);
           this.authService.logout();

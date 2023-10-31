@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit{
     const values:any = form.value;
     const email:string = values.email;
     const password:string = values.password;
-    if(email != "" && password != ""){
+    if(email && password && email !== "" && password !== ""){
       const dataObject:object = {email:email,password:password};
       this.authService.loginRequest(dataObject).subscribe({
         next:(response:object) => {

@@ -10,25 +10,16 @@
     <input type="number" name="alcohol" id="alcohol" ngModel>
     <button type="submit" class="btn-create">Add new beer</button>
   </form>
-
   <ul class="list">
     <li *ngFor="let beer of getBeersList()">
-      <app-card [beerId]="beer.getBeerId()" 
-      [brewingName]="beer.getBrewingName()" 
-      [ogValue]="beer.getOGvalue()"
-        [fgValue]="beer.getFGvalue()" 
-        [alcohol]="beer.getAlcohol()" 
-        (message)="printMessage($event)"
-        (checkDelete)="deleteCard($event,beer.getBeerId())">
+      <app-card [beer]="beer"
+                (message)="printMessage($event)"
+                (checkDelete)="deleteCard($event,beer.getBeerId())"
+                (checkUpdate)="updateCard($event)">
       </app-card>
     </li>
   </ul>
-
-
-
-  <div class="modal">
-    <span class="modal-content">{{getMessage()}}</span>
-    <button mat-button (click)="cancel()" hidden>Close</button>
+  <div class="message">
+    <span class="message-content">{{getMessage()}}</span>
   </div>
-
-  
+</div>

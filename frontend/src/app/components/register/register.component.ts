@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit{
     const name:string = values.name;
     const email:string = values.email;
     const password:string = values.password;
-    if(name != "" && email != "" && password != ""){
+    if(name && email && password && name !== "" && email !== "" && password !== ""){
       const dataObject:object = {name:name,email:email,password:password};
       this.authService.registerRequest(dataObject).subscribe({
         next:(response:any) => {

@@ -26,7 +26,7 @@ export class ChangepasswordComponent implements OnInit{
     const values:any = form.value;
     const newPassword:string = values.newPassword;
     const repeatPassword:string = values.repeatPassword;
-    if(newPassword != "" && repeatPassword != "" && newPassword == repeatPassword){
+    if(newPassword && repeatPassword && newPassword !== "" && repeatPassword !== "" && newPassword === repeatPassword){
       const dataObject:object = {accessToken:localStorage.getItem("accessToken"),newPassword:newPassword,repeatPassword:repeatPassword};
       this.httprequestService.httpPostRequest("http://localhost:4000/auth/changepassword",dataObject).subscribe({
         next: (response:any) => {
@@ -34,7 +34,7 @@ export class ChangepasswordComponent implements OnInit{
         },
         error: (error:HttpErrorResponse) => {
           const errorCode:number = error.status;
-          if(errorCode == 401 || errorCode == 403){
+          if(errorCode === 401 || errorCode === 403){
             const errorMessage:string = error.statusText + " (" + error.status + ")";
             console.error(errorMessage);
             this.authService.logout();

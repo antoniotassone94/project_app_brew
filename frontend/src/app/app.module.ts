@@ -1,9 +1,11 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {MaterialModule} from "./material.module";
 import {MainComponent} from "./components/main/main.component";
 import {NavbarComponent} from "./components/navbar/navbar.component";
 import {SidebarComponent} from "./components/sidebar/sidebar.component";
@@ -20,9 +22,6 @@ import {UploadavatarComponent} from "./components/uploadavatar/uploadavatar.comp
 import {UpdateavatarimageService} from "./services/updateavatarimage.service";
 import {AuthService} from "./services/auth.service";
 import {HttprequestService} from "./services/httprequest.service";
-import {MatDialogModule} from "@angular/material/dialog";
-
-
 
 @NgModule({
   declarations:[
@@ -38,17 +37,16 @@ import {MatDialogModule} from "@angular/material/dialog";
     LoginComponent,
     RegisterComponent,
     HomepageComponent,
-    UploadavatarComponent,
-
-  
+    UploadavatarComponent
   ],
   imports:[
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    MatDialogModule,
+    MaterialModule
   ],
   providers:[
     AuthService,

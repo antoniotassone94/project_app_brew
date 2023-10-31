@@ -42,7 +42,7 @@ app.put("/create",async(req,res) => {
     if(!beer){
         return res.status(500).send({message:"Internal server error.",check:false});
     }
-    return res.status(201).send({message:"Beer created correctly.",check:true});
+    return res.status(201).send({beer:beer.id,message:"Beer created correctly.",check:true});
 })
 
 app.delete("/delete/:beerId",async(req,res) => {

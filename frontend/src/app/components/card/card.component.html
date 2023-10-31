@@ -1,8 +1,8 @@
 <div class="card">
-  <span class="label-card">Brewing name:</span> {{brewingName}}<br>
-  <span class="label-card">Original Gravity:</span> {{ogValue}}<br>
-  <span class="label-card">Final Gravity:</span> {{fgValue}}<br>
-  <span class="label-card">Alcohol:</span> {{alcohol}}%<br>
+  <span class="label-card">Brewing name:</span> {{beer.getBrewingName()}}<br>
+  <span class="label-card">Original Gravity:</span> {{beer.getOGvalue()}}<br>
+  <span class="label-card">Final Gravity:</span> {{beer.getFGvalue()}}<br>
+  <span class="label-card">Alcohol:</span> {{beer.getAlcohol()}}%<br>
   <div class="buttons-card">
     <button class="btn-card" (click)="updateBeer()">UPDATE</button>
     <button class="btn-card" (click)="deleteBeer()">DELETE</button>

@@ -28,10 +28,6 @@ export class HomepageComponent implements OnInit{
   public ngOnInit():void{}
 
   public switchLoginRegister():void{
-    if(this.loginView == true){
-      this.loginView = false;
-    }else{
-      this.loginView = true;
-    }
+    this.loginView = !this.loginView;
   }
 }
