@@ -55,10 +55,6 @@ export class BeermanagerComponent implements OnInit{
     return this.beersList;
   }
 
-  public getMessage():string{
-    return this.messageServer;
-  }
-
   public createBeer(form:NgForm):void{
     const values:any = form.value;
     const brewname:string = values.brewingname;
@@ -83,6 +79,7 @@ export class BeermanagerComponent implements OnInit{
           newBeer.setAlcohol(alcohol);
           this.beersList.push(newBeer);
           this.messageServer = response.message;
+          this.openDialog();
         },
         error: (error:HttpErrorResponse) => {
           if(error.status === 401 || error.status === 403){
@@ -92,6 +89,7 @@ export class BeermanagerComponent implements OnInit{
             this.router.navigate([""]);
           }else{
             this.messageServer = error.error.message;
+            this.openDialog();
             const errorMessage: string = error.statusText + " (" + error.status + ")";
             console.error(errorMessage);
           }
@@ -102,6 +100,7 @@ export class BeermanagerComponent implements OnInit{
 
   public printMessage(event:string):void{
     this.messageServer = event;
+    this.openDialog();
   }
 
   public updateCard(event:Beer):void{
