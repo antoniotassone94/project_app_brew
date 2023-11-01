@@ -7,6 +7,7 @@ import {AuthService} from "src/app/services/auth.service";
 import {HttprequestService} from "src/app/services/httprequest.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ModalmessageComponent} from "../modalmessage/modalmessage.component";
+import {MessageType} from "src/app/models/servermessage";
 
 @Component({
   selector: "app-beermanager",
@@ -120,8 +121,11 @@ export class BeermanagerComponent implements OnInit{
   }
 
   public openDialog():void{
+    const message:MessageType = new MessageType();
+    message.setIdMessage(new Date().getTime());
+    message.setTextMessage(this.messageServer);
     this.dialog.open(ModalmessageComponent,{
-      data:{"message":this.messageServer}
+      data:message
     });
   }
 }

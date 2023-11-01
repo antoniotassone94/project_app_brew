@@ -11,10 +11,8 @@ import {MessageType} from "src/app/models/servermessage";
 export class ModalmessageComponent implements OnInit{
   private message:MessageType;
 
-  constructor(private dialog:MatDialogRef<ModalmessageComponent>,@Inject(MAT_DIALOG_DATA) data:any){
-    this.message = new MessageType();
-    this.message.setIdMessage(new Date().getTime());
-    this.message.setTextMessage(data.message);
+  constructor(private dialog:MatDialogRef<ModalmessageComponent>,@Inject(MAT_DIALOG_DATA) data:MessageType){
+    this.message = data;
   }
 
   public ngOnInit():void{}
