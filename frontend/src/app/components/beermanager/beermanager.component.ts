@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {Beer} from "src/app/models/beer";
 import {AuthService} from "src/app/services/auth.service";
 import {HttprequestService} from "src/app/services/httprequest.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ModalmessageComponent} from "../modalmessage/modalmessage.component";
 
 @Component({
   selector: "app-beermanager",
@@ -16,7 +18,7 @@ export class BeermanagerComponent implements OnInit{
   private beersList:Beer[] = [];
   private messageServer:string = "";
 
-  constructor(private httprequestService:HttprequestService,private authService:AuthService,private router:Router){}
+  constructor(private httprequestService:HttprequestService,private authService:AuthService,private router:Router,private dialog:MatDialog){}
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
@@ -41,6 +43,7 @@ export class BeermanagerComponent implements OnInit{
           this.router.navigate([""]);
         }else{
           this.messageServer = error.error.message;
+          this.openDialog();
           const errorMessage:string = error.statusText + " (" + error.status + ")";
           console.error(errorMessage);
         }
@@ -115,5 +118,11 @@ export class BeermanagerComponent implements OnInit{
         this.beersList.splice(i,1);
       }
     }
+  }
+
+  public openDialog():void{
+    this.dialog.open(ModalmessageComponent,{
+      data:{"message":this.messageServer}
+    });
   }
 }

@@ -22,6 +22,7 @@ import {UploadavatarComponent} from "./components/uploadavatar/uploadavatar.comp
 import {UpdateavatarimageService} from "./services/updateavatarimage.service";
 import {AuthService} from "./services/auth.service";
 import {HttprequestService} from "./services/httprequest.service";
+import {ModalmessageComponent} from "./components/modalmessage/modalmessage.component";
 
 @NgModule({
   declarations:[
@@ -37,7 +38,8 @@ import {HttprequestService} from "./services/httprequest.service";
     LoginComponent,
     RegisterComponent,
     HomepageComponent,
-    UploadavatarComponent
+    UploadavatarComponent,
+    ModalmessageComponent
   ],
   imports:[
     BrowserModule,
