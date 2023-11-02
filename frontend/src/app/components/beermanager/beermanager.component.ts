@@ -5,9 +5,7 @@ import {Router} from "@angular/router";
 import {Beer} from "src/app/models/beer";
 import {AuthService} from "src/app/services/auth.service";
 import {HttprequestService} from "src/app/services/httprequest.service";
-import {MatDialog} from "@angular/material/dialog";
-import {ModalmessageComponent} from "../modalmessage/modalmessage.component";
-import {MessageType} from "src/app/models/servermessage";
+import {DialogmanagerService} from "src/app/services/dialogmanager.service";
 
 @Component({
   selector: "app-beermanager",
@@ -17,13 +15,12 @@ import {MessageType} from "src/app/models/servermessage";
 
 export class BeermanagerComponent implements OnInit{
   private beersList:Beer[] = [];
-  private messageServer:string = "";
 
-  constructor(private httprequestService:HttprequestService,private authService:AuthService,private router:Router,private dialog:MatDialog){}
+  constructor(private httprequestService:HttprequestService,private authService:AuthService,private router:Router,private dialogManagerService:DialogmanagerService){}
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
-    this.httprequestService.httpPostRequest("http://localhost:4000/app/getAll", dataObject).subscribe({
+    this.httprequestService.httpPostRequest("http://localhost:4000/app/getAll",dataObject).subscribe({
       next: (response:any) => {
         const listBeers:any[] = response.beers;
         for (let i = 0; i < listBeers.length; i++) {
@@ -43,8 +40,7 @@ export class BeermanagerComponent implements OnInit{
           this.authService.logout();
           this.router.navigate([""]);
         }else{
-          this.messageServer = error.error.message;
-          this.openDialog();
+          this.dialogManagerService.openDialog(error.error.message);
           const errorMessage:string = error.statusText + " (" + error.status + ")";
           console.error(errorMessage);
         }
@@ -79,8 +75,7 @@ export class BeermanagerComponent implements OnInit{
           newBeer.setFGValue(fgValue);
           newBeer.setAlcohol(alcohol);
           this.beersList.push(newBeer);
-          this.messageServer = response.message;
-          this.openDialog();
+          this.dialogManagerService.openDialog(response.message);
         },
         error: (error:HttpErrorResponse) => {
           if(error.status === 401 || error.status === 403){
@@ -89,8 +84,7 @@ export class BeermanagerComponent implements OnInit{
             this.authService.logout();
             this.router.navigate([""]);
           }else{
-            this.messageServer = error.error.message;
-            this.openDialog();
+            this.dialogManagerService.openDialog(error.error.message);
             const errorMessage: string = error.statusText + " (" + error.status + ")";
             console.error(errorMessage);
           }
@@ -100,8 +94,7 @@ export class BeermanagerComponent implements OnInit{
   }
 
   public printMessage(event:string):void{
-    this.messageServer = event;
-    this.openDialog();
+    this.dialogManagerService.openDialog(event);
   }
 
   public updateCard(event:Beer):void{
@@ -118,14 +111,5 @@ export class BeermanagerComponent implements OnInit{
         this.beersList.splice(i,1);
       }
     }
-  }
-
-  public openDialog():void{
-    const message:MessageType = new MessageType();
-    message.setIdMessage(new Date().getTime());
-    message.setTextMessage(this.messageServer);
-    this.dialog.open(ModalmessageComponent,{
-      data:message
-    });
   }
 }

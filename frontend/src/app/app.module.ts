@@ -19,10 +19,11 @@ import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {HomepageComponent} from "./components/homepage/homepage.component";
 import {UploadavatarComponent} from "./components/uploadavatar/uploadavatar.component";
+import {ModalmessageComponent} from "./components/modalmessage/modalmessage.component";
 import {UpdateavatarimageService} from "./services/updateavatarimage.service";
 import {AuthService} from "./services/auth.service";
 import {HttprequestService} from "./services/httprequest.service";
-import {ModalmessageComponent} from "./components/modalmessage/modalmessage.component";
+import {DialogmanagerService} from "./services/dialogmanager.service";
 
 @NgModule({
   declarations:[
@@ -53,7 +54,8 @@ import {ModalmessageComponent} from "./components/modalmessage/modalmessage.comp
   providers:[
     AuthService,
     HttprequestService,
-    UpdateavatarimageService
+    UpdateavatarimageService,
+    DialogmanagerService
   ],
   bootstrap:[MainComponent]
 })
