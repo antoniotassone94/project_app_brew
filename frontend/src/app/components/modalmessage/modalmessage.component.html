@@ -1,9 +1,7 @@
 <div class="modal-container">
-  <div mat-dialog-content class="modal">
-    <h3 mat-dialog-title>System message</h3>
-    <div class="modal-content">
-       <span class="text-message">{{getMessage()}}</span>
-      <button mat-dialog-close="true"><mat-icon svgIcon="close"></mat-icon></button>
-    </div>
+  <h3 mat-dialog-title>System message</h3>
+  <button mat-dialog-close="true"><mat-icon svgIcon="close"></mat-icon></button>
+  <div mat-dialog-content class="modal-content">
+    <span class="text-message">{{getMessage()}}</span>
   </div>
 </div>
