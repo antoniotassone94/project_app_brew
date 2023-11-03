@@ -1,41 +1,26 @@
-.modal-container{
-  justify-content:center;
-  align-items:center;
-  width:250px;
-  height:400px;
-  z-index:9999;
-  position:fixed;
-  top:0px;
-  left:0px;
-  margin:auto 0;
-  background:rgba(0, 0, 0, 0.3);
+.dialog-container{
+  background:rgba(0,0,0,0.3);
+  color:white;
+  width:100%;
+  padding:20px;
+  position:relative;
   display:flex;
   flex-direction:column;
 }
 
-.modal-content{
-  background:#fff;
-  padding:20px;
-  border-radius:15px;
-  box-shadow:0 2px 4px rgba(0, 0, 0, 0.2);
-  text-align:center;
-}
-
-.modal-container button{
+.close-button{
+  position:absolute;
+  top:10px;
+  right:10px;
+  cursor:pointer;
+  font-size:20px;
   background:#007bff;
-  color:#fff;
   border:none;
   border-radius:100%;
-  cursor:pointer;
-  margin:15px;
-  height:max-content;
-  width:50px;
-  font-size:20pt;
-  font-weight:bold;
   text-align:center;
 }
 
-.modal-container button:hover{
+.close-button:hover{
   background:#0056b3;
 }
 
@@ -51,9 +36,4 @@ h3{
   margin:5px;
   border-radius:15px;
   text-align:center;
-}
-
-::ng-deep .mat-dialog-container {
- padding: 0;
- overflow: hidden;
 }
