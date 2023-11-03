@@ -14,10 +14,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 20px;
 }
 
 .create-content input {
-  width: 50%;
+  width: 70%;
   height: 40px;
   margin: 20px;
   font-size: 16px;
