@@ -13,12 +13,14 @@ export class DialogManagerService{
   constructor(private dialog:MatDialog){}
 
   public openDialog(messageToPrint:string):void{
-    const message:MessageType = new MessageType();
-    message.setIdMessage(new Date().getTime());
-    message.setTextMessage(messageToPrint);
-    this.dialog.open(ModalMessageComponent,{
-      data:message
-    });
+    if(messageToPrint && messageToPrint !== ""){
+      const message:MessageType = new MessageType();
+      message.setIdMessage(new Date().getTime());
+      message.setTextMessage(messageToPrint);
+      this.dialog.open(ModalMessageComponent,{
+        data:message
+      });
+    }
   }
 
   public openForm(beerToUpdate:Beer):void{
