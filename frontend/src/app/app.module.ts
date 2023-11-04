@@ -20,10 +20,12 @@ import {RegisterComponent} from "./components/register/register.component";
 import {HomepageComponent} from "./components/homepage/homepage.component";
 import {UploadAvatarComponent} from "./components/uploadavatar/uploadavatar.component";
 import {ModalMessageComponent} from "./components/modalmessage/modalmessage.component";
+import {ModalFormComponent} from "./components/modalform/modalform.component";
 import {UpdateAvatarImageService} from "./services/updateavatarimage.service";
 import {AuthService} from "./services/auth.service";
 import {HttpRequestService} from "./services/httprequest.service";
 import {DialogManagerService} from "./services/dialogmanager.service";
+import {UpdateCardChangedService} from "./services/updatecardchanged.service";
 
 @NgModule({
   declarations:[
@@ -40,7 +42,8 @@ import {DialogManagerService} from "./services/dialogmanager.service";
     RegisterComponent,
     HomepageComponent,
     UploadAvatarComponent,
-    ModalMessageComponent
+    ModalMessageComponent,
+    ModalFormComponent
   ],
   imports:[
     BrowserModule,
@@ -55,7 +58,8 @@ import {DialogManagerService} from "./services/dialogmanager.service";
     AuthService,
     HttpRequestService,
     UpdateAvatarImageService,
-    DialogManagerService
+    DialogManagerService,
+    UpdateCardChangedService
   ],
   bootstrap:[MainComponent]
 })

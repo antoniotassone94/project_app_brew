@@ -6,6 +6,8 @@ import {Beer} from "src/app/models/beer";
 import {AuthService} from "src/app/services/auth.service";
 import {HttpRequestService} from "src/app/services/httprequest.service";
 import {DialogManagerService} from "src/app/services/dialogmanager.service";
+import {UpdateCardChangedService} from "src/app/services/updatecardchanged.service";
+import {UpdateBeerDataService} from "src/app/models/updatebeerdataservice";
 
 @Component({
   selector: "app-beermanager",
@@ -16,7 +18,7 @@ import {DialogManagerService} from "src/app/services/dialogmanager.service";
 export class BeerManagerComponent implements OnInit{
   private beersList:Beer[] = [];
 
-  constructor(private httprequestService:HttpRequestService,private authService:AuthService,private router:Router,private dialogManagerService:DialogManagerService){}
+  constructor(private httprequestService:HttpRequestService,private authService:AuthService,private router:Router,private dialogManagerService:DialogManagerService,private updatecard:UpdateCardChangedService){}
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
@@ -44,6 +46,26 @@ export class BeerManagerComponent implements OnInit{
           const errorMessage:string = error.statusText + " (" + error.status + ")";
           console.error(errorMessage);
         }
+      }
+    });
+    this.updatecard.getDataService().subscribe({
+      next: (dataChanged:UpdateBeerDataService) => {
+        this.dialogManagerService.closeForm();
+        if(dataChanged.getCheck() === true){
+          const beerChanged:Beer = dataChanged.getBeer();
+          let i = 0;
+          const beerId:string = beerChanged.getBeerId();
+          while(i < this.beersList.length && this.beersList[i].getBeerId() !== beerId){
+            i++;
+          }
+          if(i < this.beersList.length){
+            this.beersList[i].setBrewingName(beerChanged.getBrewingName());
+            this.beersList[i].setOGValue(beerChanged.getOGvalue());
+            this.beersList[i].setFGValue(beerChanged.getFGvalue());
+            this.beersList[i].setAlcohol(beerChanged.getAlcohol());
+          }
+        }
+        this.dialogManagerService.openDialog(dataChanged.getMessage());
       }
     });
   }
@@ -98,7 +120,7 @@ export class BeerManagerComponent implements OnInit{
   }
 
   public updateCard(event:Beer):void{
-    console.log(event);
+    this.dialogManagerService.openForm(event);
   }
 
   public deleteCard(event:boolean,beerId:string):void{

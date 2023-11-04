@@ -1,7 +1,7 @@
 import {TestBed} from "@angular/core/testing";
 import {HttpRequestService} from "./httprequest.service";
 
-describe("HttprequestService", () => {
+describe("HttpRequestService", () => {
   let service: HttpRequestService;
 
   beforeEach(() => {

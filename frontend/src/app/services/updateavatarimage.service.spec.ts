@@ -1,7 +1,7 @@
 import {TestBed} from "@angular/core/testing";
 import {UpdateAvatarImageService} from "./updateavatarimage.service";
 
-describe("UpdateavatarimageService", () => {
+describe("UpdateAvatarImageService", () => {
   let service: UpdateAvatarImageService;
 
   beforeEach(() => {
