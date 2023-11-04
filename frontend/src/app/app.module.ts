@@ -10,20 +10,20 @@ import {MainComponent} from "./components/main/main.component";
 import {NavbarComponent} from "./components/navbar/navbar.component";
 import {SidebarComponent} from "./components/sidebar/sidebar.component";
 import {CalculatorComponent} from "./components/calculator/calculator.component";
-import {BeermanagerComponent} from "./components/beermanager/beermanager.component";
+import {BeerManagerComponent} from "./components/beermanager/beermanager.component";
 import {CardComponent} from "./components/card/card.component";
 import {ProfileComponent} from "./components/profile/profile.component";
-import {ChangepasswordComponent} from "./components/changepassword/changepassword.component";
+import {ChangePasswordComponent} from "./components/changepassword/changepassword.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {HomepageComponent} from "./components/homepage/homepage.component";
-import {UploadavatarComponent} from "./components/uploadavatar/uploadavatar.component";
-import {ModalmessageComponent} from "./components/modalmessage/modalmessage.component";
-import {UpdateavatarimageService} from "./services/updateavatarimage.service";
+import {UploadAvatarComponent} from "./components/uploadavatar/uploadavatar.component";
+import {ModalMessageComponent} from "./components/modalmessage/modalmessage.component";
+import {UpdateAvatarImageService} from "./services/updateavatarimage.service";
 import {AuthService} from "./services/auth.service";
-import {HttprequestService} from "./services/httprequest.service";
-import {DialogmanagerService} from "./services/dialogmanager.service";
+import {HttpRequestService} from "./services/httprequest.service";
+import {DialogManagerService} from "./services/dialogmanager.service";
 
 @NgModule({
   declarations:[
@@ -31,16 +31,16 @@ import {DialogmanagerService} from "./services/dialogmanager.service";
     NavbarComponent,
     SidebarComponent,
     CalculatorComponent,
-    BeermanagerComponent,
+    BeerManagerComponent,
     CardComponent,
     ProfileComponent,
-    ChangepasswordComponent,
+    ChangePasswordComponent,
     DashboardComponent,
     LoginComponent,
     RegisterComponent,
     HomepageComponent,
-    UploadavatarComponent,
-    ModalmessageComponent
+    UploadAvatarComponent,
+    ModalMessageComponent
   ],
   imports:[
     BrowserModule,
@@ -53,9 +53,9 @@ import {DialogmanagerService} from "./services/dialogmanager.service";
   ],
   providers:[
     AuthService,
-    HttprequestService,
-    UpdateavatarimageService,
-    DialogmanagerService
+    HttpRequestService,
+    UpdateAvatarImageService,
+    DialogManagerService
   ],
   bootstrap:[MainComponent]
 })

@@ -2,7 +2,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
-import {HttprequestService} from "src/app/services/httprequest.service";
+import {HttpRequestService} from "src/app/services/httprequest.service";
 
 @Component({
   selector: "app-profile",
@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit{
   private name:string = "";
   private email:string = "";
 
-  constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router){}
+  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private router:Router){}
 
   public getName():string{
     return this.name;

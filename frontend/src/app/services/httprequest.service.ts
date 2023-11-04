@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
   providedIn: "root"
 })
 
-export class HttprequestService {
+export class HttpRequestService {
   constructor(private httpClient:HttpClient){}
 
   public httpPostRequest(url:string,body:object):Observable<any>{

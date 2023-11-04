@@ -3,7 +3,8 @@ import {Component,OnInit} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
-import {HttprequestService} from "src/app/services/httprequest.service";
+import {DialogManagerService} from "src/app/services/dialogmanager.service";
+import {HttpRequestService} from "src/app/services/httprequest.service";
 
 @Component({
   selector: "app-changepassword",
@@ -11,14 +12,8 @@ import {HttprequestService} from "src/app/services/httprequest.service";
   styleUrls: ["./changepassword.component.css"]
 })
 
-export class ChangepasswordComponent implements OnInit{
-  private message:string = "";
-
-  constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router){}
-
-  public getMessage():string{
-    return this.message;
-  }
+export class ChangePasswordComponent implements OnInit{
+  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private router:Router,private dialogmanager:DialogManagerService){}
 
   public ngOnInit():void{}
 
@@ -30,7 +25,7 @@ export class ChangepasswordComponent implements OnInit{
       const dataObject:object = {accessToken:localStorage.getItem("accessToken"),newPassword:newPassword,repeatPassword:repeatPassword};
       this.httprequestService.httpPostRequest("http://localhost:4000/auth/changepassword",dataObject).subscribe({
         next: (response:any) => {
-          this.message = response.message;
+          this.dialogmanager.openDialog(response.message);
         },
         error: (error:HttpErrorResponse) => {
           const errorCode:number = error.status;
@@ -40,7 +35,7 @@ export class ChangepasswordComponent implements OnInit{
             this.authService.logout();
             this.router.navigate([""]);
           }else{
-            this.message = error.error.message;
+            this.dialogmanager.openDialog(error.error.message);
           }
         }
       });

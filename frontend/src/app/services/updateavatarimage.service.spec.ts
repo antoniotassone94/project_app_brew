@@ -1,12 +1,12 @@
 import {TestBed} from "@angular/core/testing";
-import {UpdateavatarimageService} from "./updateavatarimage.service";
+import {UpdateAvatarImageService} from "./updateavatarimage.service";
 
 describe("UpdateavatarimageService", () => {
-  let service: UpdateavatarimageService;
+  let service: UpdateAvatarImageService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UpdateavatarimageService);
+    service = TestBed.inject(UpdateAvatarImageService);
   });
 
   it("should be created", () => {

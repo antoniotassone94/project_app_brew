@@ -2,8 +2,9 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
-import {HttprequestService} from "src/app/services/httprequest.service";
-import {UpdateavatarimageService} from "src/app/services/updateavatarimage.service";
+import {DialogManagerService} from "src/app/services/dialogmanager.service";
+import {HttpRequestService} from "src/app/services/httprequest.service";
+import {UpdateAvatarImageService} from "src/app/services/updateavatarimage.service";
 
 @Component({
   selector: "app-sidebar",
@@ -15,7 +16,7 @@ export class SidebarComponent implements OnInit{
   private nameSidebar:string = "";
   private urlAvatar:string = "assets/images/avatar.jpg";
 
-  constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router,private updateImage:UpdateavatarimageService){}
+  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private router:Router,private updateImage:UpdateAvatarImageService,private dialogmanager:DialogManagerService){}
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
@@ -54,6 +55,7 @@ export class SidebarComponent implements OnInit{
     this.httprequestService.httpPostRequest("http://localhost:4000/auth/deleteavatar",dataObject).subscribe({
       next: (response:any) => {
         this.urlAvatar = "assets/images/avatar.jpg";
+        this.dialogmanager.openDialog(response.message);
       },
       error: (error:HttpErrorResponse) => {
         const errorCode:number = error.status;
@@ -63,7 +65,7 @@ export class SidebarComponent implements OnInit{
           this.authService.logout();
           this.router.navigate([""]);
         }else{
-          console.error(error.error.message);
+          this.dialogmanager.openDialog(error.error.message);
         }
       }
     });

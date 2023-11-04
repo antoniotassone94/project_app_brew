@@ -2,8 +2,9 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
-import {HttprequestService} from "src/app/services/httprequest.service";
-import {UpdateavatarimageService} from "src/app/services/updateavatarimage.service";
+import {DialogManagerService} from "src/app/services/dialogmanager.service";
+import {HttpRequestService} from "src/app/services/httprequest.service";
+import {UpdateAvatarImageService} from "src/app/services/updateavatarimage.service";
 
 @Component({
   selector: "app-uploadavatar",
@@ -11,17 +12,12 @@ import {UpdateavatarimageService} from "src/app/services/updateavatarimage.servi
   styleUrls: ["./uploadavatar.component.css"]
 })
 
-export class UploadavatarComponent implements OnInit{
+export class UploadAvatarComponent implements OnInit{
   private selectedFile:File|null = null;
-  private message:string = "";
 
-  constructor(private authService:AuthService,private httprequestService:HttprequestService,private router:Router,private updateImage:UpdateavatarimageService){}
+  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private router:Router,private updateImage:UpdateAvatarImageService,private dialogmanager:DialogManagerService){}
 
   public ngOnInit():void{}
-
-  public getMessage():string{
-    return this.message;
-  }
 
   public updateFileSelected(event:any):void{
     this.selectedFile = event.target.files[0];
@@ -34,7 +30,7 @@ export class UploadavatarComponent implements OnInit{
       dataObject.append("accessToken",<string>localStorage.getItem("accessToken"));
       this.httprequestService.httpPostRequest("http://localhost:4000/auth/uploadavatar",dataObject).subscribe({
         next: (response:any) => {
-          this.message = response.message;
+          this.dialogmanager.openDialog(response.message);
           this.updateImage.setUrlAvatar(response.filename);
         },
         error: (error:HttpErrorResponse) => {
@@ -45,12 +41,12 @@ export class UploadavatarComponent implements OnInit{
             this.authService.logout();
             this.router.navigate([""]);
           }else{
-            this.message = error.error.message;
+            this.dialogmanager.openDialog(error.error.message);
           }
         }
       });
     }else{
-      this.message = "There isn't any file selected.";
+      this.dialogmanager.openDialog("There isn't any file selected.");
     }
   }
 }

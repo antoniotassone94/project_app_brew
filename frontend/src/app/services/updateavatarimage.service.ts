@@ -1,17 +1,17 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {BehaviorSubject,Observable} from "rxjs";
-import {HttprequestService} from "./httprequest.service";
+import {HttpRequestService} from "./httprequest.service";
 
 @Injectable({
   providedIn:"root"
 })
 
-export class UpdateavatarimageService{
+export class UpdateAvatarImageService{
   private urlAvatar:BehaviorSubject<string> = new BehaviorSubject<string>("assets/images/avatar.jpg"); //url dell'avatar di default
   private urlObservable:Observable<string> = this.urlAvatar.asObservable();
 
-  constructor(private httprequestService:HttprequestService){
+  constructor(private httprequestService:HttpRequestService){
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
     this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
       next: (response:any) => {

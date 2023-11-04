@@ -3,7 +3,7 @@ import {Component,EventEmitter,Input,OnInit,Output} from "@angular/core";
 import {Router} from "@angular/router";
 import {Beer} from "src/app/models/beer";
 import {AuthService} from "src/app/services/auth.service";
-import {HttprequestService} from "src/app/services/httprequest.service";
+import {HttpRequestService} from "src/app/services/httprequest.service";
 
 @Component({
   selector: "app-card",
@@ -17,7 +17,7 @@ export class CardComponent implements OnInit{
   @Output() checkDelete:EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() seeUpdate:EventEmitter<Beer> = new EventEmitter<Beer>();
 
-  constructor(private authService:AuthService,private router:Router,private httprequest:HttprequestService){}
+  constructor(private authService:AuthService,private router:Router,private httprequest:HttpRequestService){}
 
   public ngOnInit():void{}
 

@@ -4,8 +4,8 @@ import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Beer} from "src/app/models/beer";
 import {AuthService} from "src/app/services/auth.service";
-import {HttprequestService} from "src/app/services/httprequest.service";
-import {DialogmanagerService} from "src/app/services/dialogmanager.service";
+import {HttpRequestService} from "src/app/services/httprequest.service";
+import {DialogManagerService} from "src/app/services/dialogmanager.service";
 
 @Component({
   selector: "app-beermanager",
@@ -13,10 +13,10 @@ import {DialogmanagerService} from "src/app/services/dialogmanager.service";
   styleUrls: ["./beermanager.component.css"]
 })
 
-export class BeermanagerComponent implements OnInit{
+export class BeerManagerComponent implements OnInit{
   private beersList:Beer[] = [];
 
-  constructor(private httprequestService:HttprequestService,private authService:AuthService,private router:Router,private dialogManagerService:DialogmanagerService){}
+  constructor(private httprequestService:HttpRequestService,private authService:AuthService,private router:Router,private dialogManagerService:DialogManagerService){}
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};

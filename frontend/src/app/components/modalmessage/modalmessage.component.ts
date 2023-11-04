@@ -1,7 +1,7 @@
 import {Component,Inject,OnInit} from "@angular/core";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {MatIconRegistry} from "@angular/material/icon";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {DomSanitizer,SafeResourceUrl} from "@angular/platform-browser";
 import {MessageType} from "src/app/models/servermessage";
 
 @Component({
@@ -10,7 +10,7 @@ import {MessageType} from "src/app/models/servermessage";
   styleUrls: ["./modalmessage.component.css"]
 })
 
-export class ModalmessageComponent implements OnInit{
+export class ModalMessageComponent implements OnInit{
   private message:MessageType;
 
   constructor(@Inject(MAT_DIALOG_DATA) data:MessageType,private registryIcon:MatIconRegistry,private dom:DomSanitizer){
