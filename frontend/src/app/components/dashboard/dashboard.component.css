@@ -4,3 +4,22 @@
   display:flex;
   flex-direction:row;
 }
+
+.img-line{
+  height: 30px;
+  width: 30px;
+  visibility: hidden;
+  left: 0;
+  position: fixed;
+
+}
+
+
+@media screen and (max-width: 768px ){
+.sidebar{
+  visibility: hidden;
+}
+.img-line{
+  visibility: visible;
+}
+}

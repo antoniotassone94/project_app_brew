@@ -45,3 +45,9 @@ form label{
   font-weight:bold;
   font-size:18px;
 }
+
+@media screen and (max-width: 425px ){
+  input{
+    width: 70%;
+  }
+}

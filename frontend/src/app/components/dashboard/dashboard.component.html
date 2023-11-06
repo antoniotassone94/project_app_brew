@@ -1,4 +1,7 @@
 <div class="dashboard">
-  <app-sidebar></app-sidebar>
+  <div #sidebar class="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <a (click)="showSidebar()" class="img-line"> <img src="assets/images/line.png" alt="" width="30px" height="30px"></a>
   <router-outlet></router-outlet>
 </div>
