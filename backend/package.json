@@ -1,7 +1,7 @@
 {
   "name": "application-brewing-backend",
   "version": "1.0.0",
-  "description": "backend for the application.",
+  "description": "backend for the application to manage the brewing list to make beer home made.",
   "main": "src/server.ts",
   "scripts": {
     "start": "nodemon src/server.ts"

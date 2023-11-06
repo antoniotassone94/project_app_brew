@@ -1,6 +1,7 @@
 {
-  "name": "project-app-test",
-  "version": "0.0.0",
+  "name": "application-brewing-frontend",
+  "version": "1.0.0",
+  "description": "frontend for the application to manage the brewing list to make beer home made.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,6 +9,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "author": "Antonio Tassone and Rafael Merlotto",
+  "license": "ISC",
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.2.0",
