@@ -2,7 +2,7 @@
   <h3 mat-dialog-title>Update the data of the beer</h3>
   <button mat-dialog-close="true" class="close-button"><mat-icon svgIcon="close"></mat-icon></button>
   <div mat-dialog-content class="message-content">
-    <form #updateBeerForm="ngForm" (ngSubmit)="updateData(updateBeerForm)">
+    <form #updateBeerForm="ngForm" (ngSubmit)="updateData(updateBeerForm)" class="form-update-beer">
       <input type="hidden" name="beerId" [ngModel]="getBeerId()">
       <label for="brewingName">Brewing name</label>
       <input type="text" name="brewingName" id="brewingName" [ngModel]="getBrewingName()">
@@ -12,7 +12,7 @@
       <input type="number" name="fgValue" id="fgValue" [ngModel]="getFGvalue()">
       <label for="alcohol">Alcohol</label>
       <input type="number" name="alcohol" id="alcohol" [ngModel]="getAlcohol()">
-      <button type="submit">Update now</button>
+      <button type="submit" class="btn-update-form">Update now</button>
     </form>
   </div>
 </div>
