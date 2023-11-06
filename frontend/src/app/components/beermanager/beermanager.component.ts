@@ -68,6 +68,7 @@ export class BeerManagerComponent implements OnInit{
         this.dialogManagerService.openDialog(dataChanged.getMessage());
       }
     });
+    this.updatecard.setDataService(new UpdateBeerDataService());
   }
 
   public getBeersList():Beer[]{
