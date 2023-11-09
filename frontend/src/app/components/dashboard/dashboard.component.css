@@ -14,12 +14,12 @@
 
 }
 
-
 @media screen and (max-width: 768px ){
-.sidebar{
-  visibility: hidden;
-}
-.img-line{
-  visibility: visible;
-}
+  .sidebar{
+    visibility: hidden;
+  }
+
+  .img-line{
+    visibility: visible;
+  }
 }

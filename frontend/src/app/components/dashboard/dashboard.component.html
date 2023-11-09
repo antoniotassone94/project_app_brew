@@ -3,5 +3,7 @@
     <app-sidebar></app-sidebar>
   </div>
   <a (click)="showSidebar()" class="img-line"> <img src="assets/images/line.png" alt="" width="30px" height="30px"></a>
-  <router-outlet></router-outlet>
+  <div #router>
+    <router-outlet></router-outlet>
+  </div>
 </div>

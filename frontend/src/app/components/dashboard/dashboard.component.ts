@@ -1,4 +1,5 @@
 import {Component,ElementRef,OnInit,ViewChild} from "@angular/core";
+import {ResponsiveSidebarService} from "src/app/services/responsivesidebar.service";
 
 @Component({
   selector: "app-dashboard",
@@ -8,8 +9,9 @@ import {Component,ElementRef,OnInit,ViewChild} from "@angular/core";
 
 export class DashboardComponent implements OnInit{
   @ViewChild("sidebar") sidebar!:ElementRef;
+  @ViewChild("router") router!:ElementRef;
 
-  constructor(){}
+  constructor(private responsivesidebar:ResponsiveSidebarService){}
 
   public ngOnInit():void{}
 
@@ -18,6 +20,7 @@ export class DashboardComponent implements OnInit{
       this.sidebar.nativeElement.style.visibility = "visible";
     }else{
       this.sidebar.nativeElement.style.visibility = "hidden";
+      this.responsivesidebar.updateViewRouter(this.sidebar,this.router);
     }
   }
 }
