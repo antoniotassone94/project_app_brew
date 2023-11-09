@@ -7,9 +7,8 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {ChangePasswordComponent} from "./components/changepassword/changepassword.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {UploadAvatarComponent} from "./components/uploadavatar/uploadavatar.component";
-import { SidebarComponent } from "./components/sidebar/sidebar.component";
 
-const routes: Routes = [
+const routes:Routes = [
   {path:"dashboard",component:DashboardComponent,canActivate:[AuthGuard],canActivateChild:[AuthGuard],children:[
     {path:"calculator",component:CalculatorComponent},
     {path:"brewingList",component:BeerManagerComponent},
@@ -17,8 +16,7 @@ const routes: Routes = [
       {path:"changepassword",component:ChangePasswordComponent},
       {path:"uploadavatar",component:UploadAvatarComponent}
     ]}
-  ]},
-
+  ]}
 ];
 
 @NgModule({
