@@ -23,4 +23,8 @@ export class DashboardComponent implements OnInit{
       this.responsivesidebar.updateViewRouter(this.sidebar,this.router);
     }
   }
+
+  public hideSidebar():void{
+    this.sidebar.nativeElement.style.visibility = "hidden";
+  }
 }

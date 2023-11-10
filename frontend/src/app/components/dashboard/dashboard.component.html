@@ -4,6 +4,6 @@
   </div>
   <a (click)="showSidebar()" class="img-line"> <img src="assets/images/line.png" alt="" width="30px" height="30px"></a>
   <div #router>
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="hideSidebar()"></router-outlet>
   </div>
 </div>
