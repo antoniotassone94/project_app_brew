@@ -1,49 +1,49 @@
 .sidebar{
-  width: 250px;
-  height: 100%;
-  background: url("src/assets/images/hops.jpg")  no-repeat center / cover ;
+  width:250px;
+  height:100%;
+  background:url("src/assets/images/hops.jpg")  no-repeat center / cover ;
 }
 
 .profile{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 .profile img{
-  height: 200px;
-  width: 200px;
-  margin-top: 30px;
-  border-radius: 100%;
+  height:200px;
+  width:200px;
+  margin-top:30px;
+  border-radius:100%;
 }
 
 .sidebar h4{
-  color: #fff;
+  color:#fff;
 }
 
 .sidebar ul,.logout{
-  height: auto;
-  padding: 20px;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  height:auto;
+  padding:20px;
+  margin-top:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
 }
 
 .btn-sidebar-menu,.logout button{
-  height: 40px;
-  width: 100%;
-  font-size: 16px;
-  color: #fff;
-  background-color: #917941;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+  height:40px;
+  width:100%;
+  font-size:16px;
+  color:#fff;
+  background-color:#917941;
+  border:none;
+  border-radius:3px;
+  cursor:pointer;
 }
 
 .btn-sidebar-menu:hover{
-  background-color:  #ae8e45;
+  background-color:#ae8e45;
 }
 
 .logout button,.logout button:hover{
@@ -63,6 +63,6 @@
   font-weight:bold;
   font-size:18pt;
   left:0;
-  margin: 40px 0  0 170px;
-  cursor: pointer;
+  margin:40px 0  0 170px;
+  cursor:pointer;
 }

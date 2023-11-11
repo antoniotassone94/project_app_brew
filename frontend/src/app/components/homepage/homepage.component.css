@@ -1,20 +1,20 @@
 .switch-login-register{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .btn-login-register{
-  height: 40px;
-  width: 50%;
-  font-size: 16px;
+  height:40px;
+  width:50%;
+  font-size:16px;
   color:#ae8e45;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+  background-color:transparent;
+  border:none;
+  cursor:pointer;
 }
 
 .btn-login-register:hover{
-  background-color: transparent;
+  background-color:transparent;
   color:#917941
 }

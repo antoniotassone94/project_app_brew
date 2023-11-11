@@ -1,31 +1,35 @@
 .form-upload-avatar{
-    width: auto;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width:auto;
+  height:200px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 }
+
 .form-upload-avatar label{
-    font-weight: bold;
+  font-weight:bold;
 }
+
 .form-upload-avatar input{
-    width: 60%;
-    height: 40px;
-    margin: 20px;
-    font-size: 16px;
-    text-align: center;
-  }
-.btn-avatar{
-    height: 40px;
-    width: 70%;
-    font-size: 16px;
-    color: #fff;
-    background-color: #917941;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+  width:60%;
+  height:40px;
+  margin:20px;
+  font-size:16px;
+  text-align:center;
 }
+
+.btn-avatar{
+  height:40px;
+  width:70%;
+  font-size:16px;
+  color:#fff;
+  background-color:#917941;
+  border:none;
+  border-radius:3px;
+  cursor:pointer;
+}
+
 .btn-avatar:hover{
-    background-color:  #ae8e45;
+  background-color:#ae8e45;
 }
