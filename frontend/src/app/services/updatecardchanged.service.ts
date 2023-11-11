@@ -1,22 +1,22 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject,Observable} from "rxjs";
-import {UpdateBeerDataService} from "../models/updatebeerdataservice";
+import {DataService} from "../models/dataservice";
 
 @Injectable({
   providedIn:"root"
 })
 
 export class UpdateCardChangedService{
-  private dataChanged:BehaviorSubject<UpdateBeerDataService> = new BehaviorSubject<UpdateBeerDataService>(new UpdateBeerDataService());
-  private dataObservable:Observable<UpdateBeerDataService> = this.dataChanged.asObservable();
+  private dataChanged:BehaviorSubject<DataService> = new BehaviorSubject<DataService>(new DataService());
+  private dataObservable:Observable<DataService> = this.dataChanged.asObservable();
 
   constructor(){}
 
-  public getDataService():Observable<UpdateBeerDataService>{
+  public getDataService():Observable<DataService>{
     return this.dataObservable;
   }
 
-  public setDataService(dataService:UpdateBeerDataService):void{
+  public setDataService(dataService:DataService):void{
     this.dataChanged.next(dataService);
   }
 }

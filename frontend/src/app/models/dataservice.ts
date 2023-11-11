@@ -1,6 +1,6 @@
 import {Beer} from "./beer";
 
-export class UpdateBeerDataService{
+export class DataService{
   private beer:Beer;
   private message:string;
   private check:boolean;

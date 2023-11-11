@@ -1,12 +1,12 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Component,EventEmitter,Inject,OnInit, Output} from "@angular/core";
+import {Component,Inject,OnInit} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer,SafeResourceUrl} from "@angular/platform-browser";
 import {Router} from "@angular/router";
 import {Beer} from "src/app/models/beer";
-import {UpdateBeerDataService} from "src/app/models/updatebeerdataservice";
+import {DataService} from "src/app/models/dataservice";
 import {AuthService} from "src/app/services/auth.service";
 import {HttpRequestService} from "src/app/services/httprequest.service";
 import {UpdateCardChangedService} from "src/app/services/updatecardchanged.service";
@@ -71,7 +71,7 @@ export class ModalFormComponent implements OnInit{
           newBeer.setOGValue(response.beer.ogValue);
           newBeer.setFGValue(response.beer.fgValue);
           newBeer.setAlcohol(response.beer.alcohol);
-          const dataService:UpdateBeerDataService = new UpdateBeerDataService();
+          const dataService:DataService = new DataService();
           dataService.setBeer(newBeer);
           dataService.setMessage(response.message);
           dataService.setCheck(true);
@@ -86,7 +86,7 @@ export class ModalFormComponent implements OnInit{
           }else{
             const errorMessage: string = error.statusText + " (" + error.status + ")";
             console.error(errorMessage);
-            const dataService:UpdateBeerDataService = new UpdateBeerDataService();
+            const dataService:DataService = new DataService();
             dataService.setMessage(error.error.message);
             dataService.setCheck(false);
             this.updatecard.setDataService(dataService);

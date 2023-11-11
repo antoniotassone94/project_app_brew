@@ -7,7 +7,7 @@ import {AuthService} from "src/app/services/auth.service";
 import {HttpRequestService} from "src/app/services/httprequest.service";
 import {DialogManagerService} from "src/app/services/dialogmanager.service";
 import {UpdateCardChangedService} from "src/app/services/updatecardchanged.service";
-import {UpdateBeerDataService} from "src/app/models/updatebeerdataservice";
+import {DataService} from "src/app/models/dataservice";
 
 @Component({
   selector: "app-beermanager",
@@ -49,7 +49,7 @@ export class BeerManagerComponent implements OnInit{
       }
     });
     this.updatecard.getDataService().subscribe({
-      next: (dataChanged:UpdateBeerDataService) => {
+      next: (dataChanged:DataService) => {
         this.dialogManagerService.closeForm();
         if(dataChanged.getCheck() === true){
           const beerChanged:Beer = dataChanged.getBeer();
@@ -68,7 +68,7 @@ export class BeerManagerComponent implements OnInit{
         this.dialogManagerService.openDialog(dataChanged.getMessage());
       }
     });
-    this.updatecard.setDataService(new UpdateBeerDataService());
+    this.updatecard.setDataService(new DataService());
   }
 
   public getBeersList():Beer[]{
