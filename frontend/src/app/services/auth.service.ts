@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {HttpRequestService} from "./httprequest.service";
+import {environment} from "src/environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -10,11 +11,11 @@ export class AuthService {
   constructor(private httprequest:HttpRequestService){}
 
   public loginRequest(body:object):Observable<any>{
-    return this.httprequest.httpPostRequest("http://localhost:4000/auth/login",body);
+    return this.httprequest.httpPostRequest(environment.serverUrl + "auth/login",body);
   }
 
   public registerRequest(body:object):Observable<any>{
-    return this.httprequest.httpPostRequest("http://localhost:4000/auth/register",body);
+    return this.httprequest.httpPostRequest(environment.serverUrl + "auth/register",body);
   }
 
   public isLogged():boolean{

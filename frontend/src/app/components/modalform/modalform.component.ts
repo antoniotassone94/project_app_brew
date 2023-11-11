@@ -10,6 +10,7 @@ import {DataService} from "src/app/models/dataservice";
 import {AuthService} from "src/app/services/auth.service";
 import {HttpRequestService} from "src/app/services/httprequest.service";
 import {UpdateCardChangedService} from "src/app/services/updatecardchanged.service";
+import {environment} from "src/environments/environment";
 
 @Component({
   selector: "app-modalform",
@@ -63,7 +64,7 @@ export class ModalFormComponent implements OnInit{
         fgValue:fgValue,
         alcohol:alcohol
       };
-      this.httprequest.httpPutRequest("http://localhost:4000/app/update/" + beerId,dataObject).subscribe({
+      this.httprequest.httpPutRequest(environment.serverUrl + "app/update/" + beerId,dataObject).subscribe({
         next: (response:any) => {
           const newBeer:Beer = new Beer();
           newBeer.setBeerId(response.beer.id);

@@ -8,6 +8,7 @@ import {HttpRequestService} from "src/app/services/httprequest.service";
 import {DialogManagerService} from "src/app/services/dialogmanager.service";
 import {UpdateCardChangedService} from "src/app/services/updatecardchanged.service";
 import {DataService} from "src/app/models/dataservice";
+import {environment} from "src/environments/environment";
 
 @Component({
   selector: "app-beermanager",
@@ -22,7 +23,7 @@ export class BeerManagerComponent implements OnInit{
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
-    this.httprequestService.httpPostRequest("http://localhost:4000/app/getAll",dataObject).subscribe({
+    this.httprequestService.httpPostRequest(environment.serverUrl + "app/getAll",dataObject).subscribe({
       next: (response:any) => {
         const listBeers:any[] = response.beers;
         for (let i = 0; i < listBeers.length; i++) {
@@ -89,7 +90,7 @@ export class BeerManagerComponent implements OnInit{
         fgValue:fgValue,
         alcohol:alcohol
       };
-      this.httprequestService.httpPutRequest("http://localhost:4000/app/create",dataObject).subscribe({
+      this.httprequestService.httpPutRequest(environment.serverUrl + "app/create",dataObject).subscribe({
         next: (response:any) => {
           const newBeer:Beer = new Beer();
           newBeer.setBeerId(response.beer);

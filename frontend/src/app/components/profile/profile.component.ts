@@ -3,6 +3,7 @@ import {Component,OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
 import {HttpRequestService} from "src/app/services/httprequest.service";
+import {environment} from "src/environments/environment";
 
 @Component({
   selector: "app-profile",
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit{
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
-    this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
+    this.httprequestService.httpPostRequest(environment.serverUrl + "auth/user",dataObject).subscribe({
       next: (response:any) => {
         this.name = response.name;
         this.email = response.email;

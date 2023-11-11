@@ -2,8 +2,10 @@ import express from "express";
 import cors from "cors";
 import {auth} from "./auth";
 import {app} from "./app";
+import dotenv from "dotenv";
 
-const PORT = process.env.PORT || 4000;
+dotenv.config();
+const PORT = process.env.SERVER_PORT || 4000;
 const server = express();
 
 server.use(cors());

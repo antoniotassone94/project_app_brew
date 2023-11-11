@@ -9,7 +9,7 @@ This project manage an application to brewing home made. This application is com
 How to use the application? Follow these steps:
 1) move inside the backend directory
 2) execute the command ```npm install``` to installing all the dependencies
-3) make a file named ```.env```, in this file create two variables, ```DATABASE_URL``` and ```JWT_PRIVATE```
+3) make a file named ```.env```, in this file create two variables, ```SERVER_PORT```, ```DATABASE_URL``` and ```JWT_PRIVATE```
 4) make a directory named ```uploads``` and inside this directory create a subdirectory named ```images```
 5) execute the command ```npx prisma db push``` to create the database starting from the schema
 6) start the backend with the command ```npm start```
@@ -18,3 +18,5 @@ How to use the application? Follow these steps:
 9) start the angular application with the command ```ng serve```
 
 Good luck for all!
+
+**Important**: inside the angular application there are the environment file in the environment directory, these files contain the data which are necessary for the application, in particular is fundamental the field ```serverUrl```.

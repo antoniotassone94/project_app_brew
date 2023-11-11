@@ -5,6 +5,7 @@ import {AuthService} from "src/app/services/auth.service";
 import {DialogManagerService} from "src/app/services/dialogmanager.service";
 import {HttpRequestService} from "src/app/services/httprequest.service";
 import {UpdateAvatarImageService} from "src/app/services/updateavatarimage.service";
+import {environment} from "src/environments/environment";
 
 @Component({
   selector: "app-uploadavatar",
@@ -28,7 +29,7 @@ export class UploadAvatarComponent implements OnInit{
       const dataObject:FormData = new FormData();
       dataObject.append("avatar",this.selectedFile);
       dataObject.append("accessToken",<string>localStorage.getItem("accessToken"));
-      this.httprequestService.httpPostRequest("http://localhost:4000/auth/uploadavatar",dataObject).subscribe({
+      this.httprequestService.httpPostRequest(environment.serverUrl + "auth/uploadavatar",dataObject).subscribe({
         next: (response:any) => {
           this.dialogmanager.openDialog(response.message);
           this.updateImage.setUrlAvatar(response.filename);

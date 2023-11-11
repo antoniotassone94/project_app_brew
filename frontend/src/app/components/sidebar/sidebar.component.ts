@@ -5,6 +5,7 @@ import {AuthService} from "src/app/services/auth.service";
 import {DialogManagerService} from "src/app/services/dialogmanager.service";
 import {HttpRequestService} from "src/app/services/httprequest.service";
 import {UpdateAvatarImageService} from "src/app/services/updateavatarimage.service";
+import {environment} from "src/environments/environment";
 
 @Component({
   selector: "app-sidebar",
@@ -20,7 +21,7 @@ export class SidebarComponent implements OnInit{
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
-    this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
+    this.httprequestService.httpPostRequest(environment.serverUrl + "auth/user",dataObject).subscribe({
       next: (response:any) => {
         this.nameSidebar = response.name;
       },
@@ -52,7 +53,7 @@ export class SidebarComponent implements OnInit{
 
   public deleteAvatar():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
-    this.httprequestService.httpPostRequest("http://localhost:4000/auth/deleteavatar",dataObject).subscribe({
+    this.httprequestService.httpPostRequest(environment.serverUrl + "auth/deleteavatar",dataObject).subscribe({
       next: (response:any) => {
         this.urlAvatar = "assets/images/avatar.jpg";
         this.dialogmanager.openDialog(response.message);

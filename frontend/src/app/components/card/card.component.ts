@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Beer} from "src/app/models/beer";
 import {AuthService} from "src/app/services/auth.service";
 import {HttpRequestService} from "src/app/services/httprequest.service";
+import {environment} from "src/environments/environment";
 
 @Component({
   selector: "app-card",
@@ -27,7 +28,7 @@ export class CardComponent implements OnInit{
 
   public deleteBeer():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
-    this.httprequest.httpDeleteRequest("http://localhost:4000/app/delete/" + this.beer.getBeerId(),dataObject).subscribe({
+    this.httprequest.httpDeleteRequest(environment.serverUrl + "app/delete/" + this.beer.getBeerId(),dataObject).subscribe({
       next: (response:any) => {
         this.message.emit(response.message);
         this.checkDelete.emit(true);

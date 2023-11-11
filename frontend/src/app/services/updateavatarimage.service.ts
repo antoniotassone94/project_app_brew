@@ -2,6 +2,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {BehaviorSubject,Observable} from "rxjs";
 import {HttpRequestService} from "./httprequest.service";
+import {environment} from "src/environments/environment";
 
 @Injectable({
   providedIn:"root"
@@ -13,11 +14,11 @@ export class UpdateAvatarImageService{
 
   constructor(private httprequestService:HttpRequestService){
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
-    this.httprequestService.httpPostRequest("http://localhost:4000/auth/user",dataObject).subscribe({
+    this.httprequestService.httpPostRequest(environment.serverUrl + "auth/user",dataObject).subscribe({
       next: (response:any) => {
         if(response.avatar != ""){ //cambio l'url solo se l'avatar è impostato dall'utente
           const filename:string = response.avatar;
-          this.urlAvatar.next("http://localhost:4000/auth/avatar/" + filename);
+          this.urlAvatar.next(environment.serverUrl + "auth/avatar/" + filename);
         }
       },
       error: (error:HttpErrorResponse) => {
@@ -34,6 +35,6 @@ export class UpdateAvatarImageService{
   }
 
   public setUrlAvatar(filename:string):void{
-    this.urlAvatar.next("http://localhost:4000/auth/avatar/" + filename);
+    this.urlAvatar.next(environment.serverUrl + "auth/avatar/" + filename);
   }
 }
