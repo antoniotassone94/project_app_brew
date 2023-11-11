@@ -25,6 +25,8 @@ export class DashboardComponent implements OnInit{
   }
 
   public hideSidebar():void{
-    this.sidebar.nativeElement.style.visibility = "hidden";
+    if(window.innerWidth <= 768){
+      this.sidebar.nativeElement.style.visibility = "hidden";
+    }
   }
 }
