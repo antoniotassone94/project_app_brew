@@ -1,6 +1,10 @@
 # ProjectAppBrew
 
-This project manage an application to brewing home made. This application is composed by two parts: backend and frontend. Both these parts are independents.
+**Authors:** Antonio Tassone and Rafael Merlotto
+
+**Version:** 1.0.0
+
+This project manage an application to brewing home made. This application is composed by two parts: backend and frontend. Both these parts are independents. The application is responsive, it can adapt on all device for each width.
 
 How to use the application? Follow these steps:
 1) move inside the backend directory
