@@ -2,7 +2,7 @@
   <div #sidebar class="sidebar">
     <app-sidebar></app-sidebar>
   </div>
-  <a (click)="showSidebar()" class="img-line"> <img src="assets/images/line.png" alt="" width="30px" height="30px"></a>
+  <a (click)="showSidebar()" class="img-line"><img src="assets/images/line.png" alt="Icon to show the sidebar" width="30px" height="30px"></a>
   <div #router>
     <router-outlet (activate)="hideSidebar()"></router-outlet>
   </div>
