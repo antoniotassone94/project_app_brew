@@ -47,3 +47,10 @@
   font-size:18px;
   font-weight:bold;
 }
+
+
+@media screen and (max-width:768px) {
+  .calculator{
+    width: 360px;
+  }
+}
