@@ -48,9 +48,8 @@
   font-weight:bold;
 }
 
-
-@media screen and (max-width:768px) {
+@media screen and (max-width:768px){
   .calculator{
-    width: 360px;
+    width:360px;
   }
 }

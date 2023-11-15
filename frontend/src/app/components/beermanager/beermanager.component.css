@@ -61,26 +61,23 @@
   align-items: center;
 }
 
-
-
 @media screen and (max-width:768px) {
-  .list {
-    flex-direction: row;
-    height: 250px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .list{
+    flex-direction:row;
+    height:250px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
   }
 
-  .create-content {
-    width: 100%;
+  .create-content{
+    width:100%;
   }
 
-  .add-content {
-    width: auto;
-    height: max-content;
-    flex-direction: column;
+  .add-content{
+    width:auto;
+    height:max-content;
+    flex-direction:column;
   }
-
 }

@@ -1,4 +1,5 @@
 import {Component,OnInit} from "@angular/core";
+import { Router } from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
 
 @Component({
@@ -8,13 +9,13 @@ import {AuthService} from "src/app/services/auth.service";
 })
 
 export class MainComponent implements OnInit{
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService,private router:Router){}
 
   public ngOnInit():void{
-    localStorage.removeItem("accessToken");
-  }
-
-  public isLogged():boolean{
-    return this.authService.isLogged();
+    if(this.authService.isLogged() === true){
+      this.router.navigate(["dashboard"]);
+    }else{
+      this.router.navigate([""]);
+    }
   }
 }

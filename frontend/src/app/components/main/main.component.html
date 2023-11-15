@@ -1,9 +1,4 @@
 <div class="container">
   <app-navbar></app-navbar>
-  <span *ngIf="!isLogged()">
-    <app-homepage></app-homepage>
-  </span>
-  <span *ngIf="isLogged()">
-    <router-outlet></router-outlet>
-  </span>
+  <span><router-outlet></router-outlet></span>
 </div>
