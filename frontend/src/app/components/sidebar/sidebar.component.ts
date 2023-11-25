@@ -10,7 +10,7 @@ import {environment} from "../../../environments/environment";
 @Component({
   selector: "app-sidebar",
   templateUrl: "./sidebar.component.html",
-  styleUrls: ["./sidebar.component.css"]
+  styleUrl: "./sidebar.component.css"
 })
 
 export class SidebarComponent implements OnInit{

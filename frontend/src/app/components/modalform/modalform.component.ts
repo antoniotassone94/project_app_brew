@@ -15,7 +15,7 @@ import {environment} from "../../../environments/environment";
 @Component({
   selector: "app-modalform",
   templateUrl: "./modalform.component.html",
-  styleUrls: ["./modalform.component.css"]
+  styleUrl: "./modalform.component.css"
 })
 
 export class ModalFormComponent implements OnInit{

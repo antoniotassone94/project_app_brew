@@ -10,7 +10,7 @@ import {environment} from "../../../environments/environment";
 @Component({
   selector: "app-uploadavatar",
   templateUrl: "./uploadavatar.component.html",
-  styleUrls: ["./uploadavatar.component.css"]
+  styleUrl: "./uploadavatar.component.css"
 })
 
 export class UploadAvatarComponent implements OnInit{

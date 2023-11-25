@@ -7,7 +7,7 @@ import {MessageType} from "../../models/servermessage";
 @Component({
   selector: "app-modalmessage",
   templateUrl: "./modalmessage.component.html",
-  styleUrls: ["./modalmessage.component.css"]
+  styleUrl: "./modalmessage.component.css"
 })
 
 export class ModalMessageComponent implements OnInit{

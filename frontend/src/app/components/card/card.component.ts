@@ -9,7 +9,7 @@ import {environment} from "../../../environments/environment";
 @Component({
   selector: "app-card",
   templateUrl: "./card.component.html",
-  styleUrls: ["./card.component.css"]
+  styleUrl: "./card.component.css"
 })
 
 export class CardComponent implements OnInit{

@@ -13,7 +13,7 @@ import {environment} from "../../../environments/environment";
 @Component({
   selector: "app-beermanager",
   templateUrl: "./beermanager.component.html",
-  styleUrls: ["./beermanager.component.css"]
+  styleUrl: "./beermanager.component.css"
 })
 
 export class BeerManagerComponent implements OnInit{

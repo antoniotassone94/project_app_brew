@@ -10,7 +10,7 @@ import {environment} from "../../../environments/environment";
 @Component({
   selector: "app-changepassword",
   templateUrl: "./changepassword.component.html",
-  styleUrls: ["./changepassword.component.css"]
+  styleUrl: "./changepassword.component.css"
 })
 
 export class ChangePasswordComponent implements OnInit{
