@@ -1,10 +1,10 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {Component,EventEmitter,Input,OnInit,Output} from "@angular/core";
 import {Router} from "@angular/router";
-import {Beer} from "src/app/models/beer";
-import {AuthService} from "src/app/services/auth.service";
-import {HttpRequestService} from "src/app/services/httprequest.service";
-import {environment} from "src/environments/environment";
+import {Beer} from "../../models/beer";
+import {AuthService} from "../../services/auth.service";
+import {HttpRequestService} from "../../services/httprequest.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: "app-card",

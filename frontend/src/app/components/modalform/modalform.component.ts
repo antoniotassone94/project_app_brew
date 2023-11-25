@@ -5,12 +5,12 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer,SafeResourceUrl} from "@angular/platform-browser";
 import {Router} from "@angular/router";
-import {Beer} from "src/app/models/beer";
-import {DataService} from "src/app/models/dataservice";
-import {AuthService} from "src/app/services/auth.service";
-import {HttpRequestService} from "src/app/services/httprequest.service";
-import {UpdateCardChangedService} from "src/app/services/updatecardchanged.service";
-import {environment} from "src/environments/environment";
+import {Beer} from "../../models/beer";
+import {DataService} from "../../models/dataservice";
+import {AuthService} from "../../services/auth.service";
+import {HttpRequestService} from "../../services/httprequest.service";
+import {UpdateCardChangedService} from "../../services/updatecardchanged.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: "app-modalform",

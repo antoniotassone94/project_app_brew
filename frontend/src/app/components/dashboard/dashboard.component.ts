@@ -1,5 +1,5 @@
 import {Component,ElementRef,OnInit,ViewChild} from "@angular/core";
-import {ResponsiveSidebarService} from "src/app/services/responsivesidebar.service";
+import {ResponsiveSidebarService} from "../../services/responsivesidebar.service";
 
 @Component({
   selector: "app-dashboard",

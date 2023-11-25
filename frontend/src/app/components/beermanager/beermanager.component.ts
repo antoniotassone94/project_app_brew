@@ -2,13 +2,13 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
-import {Beer} from "src/app/models/beer";
-import {AuthService} from "src/app/services/auth.service";
-import {HttpRequestService} from "src/app/services/httprequest.service";
-import {DialogManagerService} from "src/app/services/dialogmanager.service";
-import {UpdateCardChangedService} from "src/app/services/updatecardchanged.service";
-import {DataService} from "src/app/models/dataservice";
-import {environment} from "src/environments/environment";
+import {Beer} from "../../models/beer";
+import {AuthService} from "../../services/auth.service";
+import {HttpRequestService} from "../../services/httprequest.service";
+import {DialogManagerService} from "../../services/dialogmanager.service";
+import {UpdateCardChangedService} from "../../services/updatecardchanged.service";
+import {DataService} from "../../models/dataservice";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: "app-beermanager",

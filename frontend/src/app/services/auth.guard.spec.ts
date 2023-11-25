@@ -1,15 +1,23 @@
 import {TestBed} from "@angular/core/testing";
-import {AuthGuard} from "./auth.guard";
+import {CanActivateFn,CanActivateChildFn} from "@angular/router";
+import {authGuardParent,authGuardChildren} from "./auth.guard";
 
-describe("AuthGuard",() => {
-  let guard: AuthGuard;
+describe("authGuard", () => {
+  const executeGuard1: CanActivateFn = (...guardParameters) =>
+      TestBed.runInInjectionContext(() => authGuardParent(...guardParameters));
+
+  const executeGuard2: CanActivateChildFn = (...guardParameters) =>
+      TestBed.runInInjectionContext(() => authGuardChildren(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(AuthGuard);
   });
 
   it("should be created", () => {
-    expect(guard).toBeTruthy();
+    expect(executeGuard1).toBeTruthy();
+  });
+
+  it("should be created", () => {
+    expect(executeGuard2).toBeTruthy();
   });
 });

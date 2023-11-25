@@ -2,7 +2,7 @@ import {Component,Inject,OnInit} from "@angular/core";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer,SafeResourceUrl} from "@angular/platform-browser";
-import {MessageType} from "src/app/models/servermessage";
+import {MessageType} from "../../models/servermessage";
 
 @Component({
   selector: "app-modalmessage",
