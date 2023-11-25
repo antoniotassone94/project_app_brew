@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "src/app/services/auth.service";
 import {DialogManagerService} from "src/app/services/dialogmanager.service";
 import {HttpRequestService} from "src/app/services/httprequest.service";
-import {environment} from "src/environments/environment";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: "app-changepassword",
