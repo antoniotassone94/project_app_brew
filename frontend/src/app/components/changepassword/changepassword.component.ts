@@ -1,7 +1,6 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
 import {NgForm} from "@angular/forms";
-import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {DialogManagerService} from "../../services/dialogmanager.service";
 import {HttpRequestService} from "../../services/httprequest.service";
@@ -14,7 +13,7 @@ import {environment} from "../../../environments/environment";
 })
 
 export class ChangePasswordComponent implements OnInit{
-  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private router:Router,private dialogmanager:DialogManagerService){}
+  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private dialogmanager:DialogManagerService){}
 
   public ngOnInit():void{}
 
@@ -34,7 +33,6 @@ export class ChangePasswordComponent implements OnInit{
             const errorMessage:string = error.statusText + " (" + error.status + ")";
             console.error(errorMessage);
             this.authService.logout();
-            this.router.navigate([""]);
           }else{
             this.dialogmanager.openDialog(error.error.message);
           }

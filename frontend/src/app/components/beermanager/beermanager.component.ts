@@ -1,7 +1,6 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
 import {NgForm} from "@angular/forms";
-import {Router} from "@angular/router";
 import {Beer} from "../../models/beer";
 import {AuthService} from "../../services/auth.service";
 import {HttpRequestService} from "../../services/httprequest.service";
@@ -19,7 +18,7 @@ import {environment} from "../../../environments/environment";
 export class BeerManagerComponent implements OnInit{
   private beersList:Beer[] = [];
 
-  constructor(private httprequestService:HttpRequestService,private authService:AuthService,private router:Router,private dialogManagerService:DialogManagerService,private updatecard:UpdateCardChangedService){}
+  constructor(private httprequestService:HttpRequestService,private authService:AuthService,private dialogManagerService:DialogManagerService,private updatecard:UpdateCardChangedService){}
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
@@ -41,7 +40,6 @@ export class BeerManagerComponent implements OnInit{
           const errorMessage:string = error.statusText + " (" + error.status + ")";
           console.error(errorMessage);
           this.authService.logout();
-          this.router.navigate([""]);
         }else{
           this.dialogManagerService.openDialog(error.error.message);
           const errorMessage:string = error.statusText + " (" + error.status + ")";
@@ -106,7 +104,6 @@ export class BeerManagerComponent implements OnInit{
             const errorMessage: string = error.statusText + " (" + error.status + ")";
             console.error(errorMessage);
             this.authService.logout();
-            this.router.navigate([""]);
           }else{
             this.dialogManagerService.openDialog(error.error.message);
             const errorMessage: string = error.statusText + " (" + error.status + ")";

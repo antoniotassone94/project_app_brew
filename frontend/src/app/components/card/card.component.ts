@@ -1,6 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {Component,EventEmitter,Input,OnInit,Output} from "@angular/core";
-import {Router} from "@angular/router";
 import {Beer} from "../../models/beer";
 import {AuthService} from "../../services/auth.service";
 import {HttpRequestService} from "../../services/httprequest.service";
@@ -18,7 +17,7 @@ export class CardComponent implements OnInit{
   @Output() checkDelete:EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() seeUpdate:EventEmitter<Beer> = new EventEmitter<Beer>();
 
-  constructor(private authService:AuthService,private router:Router,private httprequest:HttpRequestService){}
+  constructor(private authService:AuthService,private httprequest:HttpRequestService){}
 
   public ngOnInit():void{}
 
@@ -38,7 +37,6 @@ export class CardComponent implements OnInit{
           const errorMessage:string = error.statusText + " (" + error.status + ")";
           console.error(errorMessage);
           this.authService.logout();
-          this.router.navigate([""]);
         }else{
           const errorMessage:string = error.statusText + " (" + error.status + ")";
           console.error(errorMessage);
