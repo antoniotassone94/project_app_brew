@@ -22,12 +22,8 @@ export class LoginComponent implements OnInit{
   }
 
   public doLogin(form:NgForm):void{
-    const values:any = form.value;
-    const email:string = values.email;
-    const password:string = values.password;
-    if(email && password && email !== "" && password !== ""){
-      const dataObject:object = {email:email,password:password};
-      this.authService.loginRequest(dataObject).subscribe({
+    if(form.valid){
+      this.authService.loginRequest(form.value).subscribe({
         next:(response:object) => {
           if(this.authService.setLogged(response)){
             this.router.navigate(["dashboard"]);

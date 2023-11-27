@@ -21,13 +21,8 @@ export class RegisterComponent implements OnInit{
   }
 
   public doRegister(form:NgForm):void{
-    const values:any = form.value;
-    const name:string = values.name;
-    const email:string = values.email;
-    const password:string = values.password;
-    if(name && email && password && name !== "" && email !== "" && password !== ""){
-      const dataObject:object = {name:name,email:email,password:password};
-      this.authService.registerRequest(dataObject).subscribe({
+    if(form.valid){
+      this.authService.registerRequest(form.value).subscribe({
         next:(response:any) => {
           this.message = response.message;
         },

@@ -1,6 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
-import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {HttpRequestService} from "../../services/httprequest.service";
 import {environment} from "../../../environments/environment";
@@ -15,7 +14,7 @@ export class ProfileComponent implements OnInit{
   private name:string = "";
   private email:string = "";
 
-  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private router:Router){}
+  constructor(private authService:AuthService,private httprequestService:HttpRequestService){}
 
   public getName():string{
     return this.name;
@@ -36,7 +35,6 @@ export class ProfileComponent implements OnInit{
         const errorMessage:string = error.statusText + " (" + error.status + ")";
         console.error(errorMessage);
         this.authService.logout();
-        this.router.navigate([""]);
       }
     });
   }

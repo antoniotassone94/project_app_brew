@@ -1,11 +1,11 @@
 <div class="register">
   <form #registerForm="ngForm" (ngSubmit)="doRegister(registerForm)">
     <label for="name">Name</label>
-    <input type="text" name="name" id="name" ngModel>
+    <input type="text" name="name" id="name" required ngModel>
     <label for="email">E-mail</label>
-    <input type="email" name="email" id="email" ngModel>
+    <input type="email" name="email" id="email" required email ngModel>
     <label for="password">Password</label>
-    <input type="password" name="password" id="password" ngModel>
+    <input type="password" name="password" id="password" required ngModel>
     <button type="submit" class="btn">Register</button>
   </form><br>
   <span>{{getMessage()}}</span>

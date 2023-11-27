@@ -4,7 +4,6 @@ import {NgForm} from "@angular/forms";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer,SafeResourceUrl} from "@angular/platform-browser";
-import {Router} from "@angular/router";
 import {Beer} from "../../models/beer";
 import {DataService} from "../../models/dataservice";
 import {AuthService} from "../../services/auth.service";
@@ -21,7 +20,7 @@ import {environment} from "../../../environments/environment";
 export class ModalFormComponent implements OnInit{
   private beer:Beer;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data:Beer,private registryIcon:MatIconRegistry,private dom:DomSanitizer,private httprequest:HttpRequestService,private authService:AuthService,private router:Router,private updatecard:UpdateCardChangedService){
+  constructor(@Inject(MAT_DIALOG_DATA) data:Beer,private registryIcon:MatIconRegistry,private dom:DomSanitizer,private httprequest:HttpRequestService,private authService:AuthService,private updatecard:UpdateCardChangedService){
     this.beer = data;
     const urlSafe:SafeResourceUrl = this.dom.bypassSecurityTrustResourceUrl("assets/images/closeIcon.svg");
     this.registryIcon.addSvgIcon("close",urlSafe);
@@ -83,7 +82,6 @@ export class ModalFormComponent implements OnInit{
             const errorMessage: string = error.statusText + " (" + error.status + ")";
             console.error(errorMessage);
             this.authService.logout();
-            this.router.navigate([""]);
           }else{
             const errorMessage: string = error.statusText + " (" + error.status + ")";
             console.error(errorMessage);

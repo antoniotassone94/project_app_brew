@@ -1,6 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {Component,OnInit} from "@angular/core";
-import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {DialogManagerService} from "../../services/dialogmanager.service";
 import {HttpRequestService} from "../../services/httprequest.service";
@@ -17,7 +16,7 @@ export class SidebarComponent implements OnInit{
   private nameSidebar:string = "";
   private urlAvatar:string = "assets/images/avatar.jpg";
 
-  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private router:Router,private updateImage:UpdateAvatarImageService,private dialogmanager:DialogManagerService){}
+  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private updateImage:UpdateAvatarImageService,private dialogmanager:DialogManagerService){}
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
@@ -48,7 +47,6 @@ export class SidebarComponent implements OnInit{
 
   public doLogout():void{
     this.authService.logout();
-    this.router.navigate([""]);
   }
 
   public deleteAvatar():void{
@@ -64,7 +62,6 @@ export class SidebarComponent implements OnInit{
           const errorMessage:string = error.statusText + " (" + error.status + ")";
           console.error(errorMessage);
           this.authService.logout();
-          this.router.navigate([""]);
         }else{
           this.dialogmanager.openDialog(error.error.message);
         }

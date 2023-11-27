@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {HttpRequestService} from "./httprequest.service";
 import {environment} from "../../environments/environment";
@@ -8,7 +9,7 @@ import {environment} from "../../environments/environment";
 })
 
 export class AuthService {
-  constructor(private httprequest:HttpRequestService){}
+  constructor(private httprequest:HttpRequestService,private router:Router){}
 
   public loginRequest(body:object):Observable<any>{
     return this.httprequest.httpPostRequest(environment.serverUrl + "auth/login",body);
@@ -29,5 +30,6 @@ export class AuthService {
 
   public logout():void{
     localStorage.removeItem("accessToken");
+    this.router.navigate([""]);
   }
 }
