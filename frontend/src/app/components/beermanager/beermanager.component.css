@@ -73,7 +73,13 @@
 
   .create-content{
     width:100%;
+    margin: 0;
   }
+.create-content input{
+  width: 50%;
+  height: 35px;
+  margin: 16px;
+}
 
   .add-content{
     width:auto;

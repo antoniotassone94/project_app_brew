@@ -82,3 +82,21 @@ h3{
 .btn-update-form:hover{
   background-color:#ae8e45;
 }
+
+
+::ng-deep .cdk-overlay-container{
+  position: absolute;
+  top: 15%;
+  left: 40%;
+}
+
+@media screen and (max-width:768px) {
+  ::ng-deep .cdk-overlay-container{
+    position: absolute;
+    top: 15%;
+    left: 10%;
+  }
+  .dialog-container{
+    width: auto;
+  }
+}

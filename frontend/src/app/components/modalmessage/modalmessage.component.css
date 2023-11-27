@@ -49,3 +49,20 @@ h3{
   left:0;
   z-index:1000;
 }
+
+::ng-deep .cdk-overlay-container{
+  position: absolute;
+  top: 40%;
+  left: 40%;
+}
+
+@media screen and (max-width:768px) {
+  ::ng-deep .cdk-overlay-container{
+    position: absolute;
+    width: 100%;
+    left: 10%;
+  }
+  .dialog-container{
+    width: auto;
+  }
+}
