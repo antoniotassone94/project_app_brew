@@ -5,6 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",
+    "build": "npx prisma db push",
     "dev": "nodemon src/server.ts"
   },
   "author": "Antonio Tassone and Rafael Merlotto",
