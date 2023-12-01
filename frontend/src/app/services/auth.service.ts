@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable,inject} from "@angular/core";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {HttpRequestService} from "./httprequest.service";
@@ -8,8 +8,12 @@ import {environment} from "../../environments/environment";
   providedIn: "root"
 })
 
-export class AuthService {
-  constructor(private httprequest:HttpRequestService,private router:Router){}
+export class AuthService{
+  private httprequest:HttpRequestService;
+
+  constructor(private router:Router){
+    this.httprequest = inject(HttpRequestService);
+  }
 
   public loginRequest(body:object):Observable<any>{
     return this.httprequest.httpPostRequest(environment.serverUrl + "auth/login",body);

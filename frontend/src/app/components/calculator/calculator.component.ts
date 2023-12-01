@@ -8,15 +8,17 @@ import {NgForm} from "@angular/forms";
 })
 
 export class CalculatorComponent implements OnInit{
-  private resultValue:string = "";
+  private _result:string;
 
-  constructor(){}
+  constructor(){
+    this._result = "";
+  }
+
+  public get result():string{
+    return this._result;
+  }
 
   public ngOnInit():void{}
-
-  public getResult():string{
-    return this.resultValue;
-  }
 
   public calculate(form:NgForm):void{
     const values:any = form.value;
@@ -24,7 +26,7 @@ export class CalculatorComponent implements OnInit{
     const FGvalue:number = values.FG;
     if(OGvalue > 0 && FGvalue > 0){
       const result:string = (((OGvalue - FGvalue) / 7.5) + 0.5).toFixed(1);
-      this.resultValue = result;
+      this._result = result;
     }
   }
 }

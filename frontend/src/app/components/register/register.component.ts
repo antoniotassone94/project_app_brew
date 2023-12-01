@@ -1,5 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Component,OnInit} from "@angular/core";
+import {Component,OnInit,inject} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 
@@ -10,24 +10,28 @@ import {AuthService} from "../../services/auth.service";
 })
 
 export class RegisterComponent implements OnInit{
-  private message:string = "";
+  private _message:string;
+  private authService:AuthService;
 
-  constructor(private authService:AuthService){}
+  constructor(){
+    this._message = "";
+    this.authService = inject(AuthService);
+  }
 
   public ngOnInit():void{}
 
-  public getMessage():string{
-    return this.message;
+  public get message():string{
+    return this._message;
   }
 
   public doRegister(form:NgForm):void{
     if(form.valid){
       this.authService.registerRequest(form.value).subscribe({
         next:(response:any) => {
-          this.message = response.message;
+          this._message = response.message;
         },
         error:(error:HttpErrorResponse) => {
-          this.message = error.statusText + " (" + error.status + "): User registration error.";
+          this._message = error.statusText + " (" + error.status + "): User registration error.";
         }
       });
     }

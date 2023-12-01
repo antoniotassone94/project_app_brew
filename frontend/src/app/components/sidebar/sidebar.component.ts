@@ -1,5 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Component,OnInit} from "@angular/core";
+import {Component,OnInit,inject} from "@angular/core";
 import {AuthService} from "../../services/auth.service";
 import {DialogManagerService} from "../../services/dialogmanager.service";
 import {HttpRequestService} from "../../services/httprequest.service";
@@ -13,16 +13,27 @@ import {environment} from "../../../environments/environment";
 })
 
 export class SidebarComponent implements OnInit{
-  private nameSidebar:string = "";
-  private urlAvatar:string = "assets/images/avatar.jpg";
+  private _nameSidebar:string;
+  private _urlAvatar:string;
+  private authService:AuthService;
+  private httprequestService:HttpRequestService;
+  private updateImage:UpdateAvatarImageService;
+  private dialogmanager:DialogManagerService;
 
-  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private updateImage:UpdateAvatarImageService,private dialogmanager:DialogManagerService){}
+  constructor(){
+    this._nameSidebar = "";
+    this._urlAvatar = "assets/images/avatar.jpg";
+    this.authService = inject(AuthService);
+    this.httprequestService = inject(HttpRequestService);
+    this.updateImage = inject(UpdateAvatarImageService);
+    this.dialogmanager = inject(DialogManagerService);
+  }
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
     this.httprequestService.httpPostRequest(environment.serverUrl + "auth/user",dataObject).subscribe({
       next: (response:any) => {
-        this.nameSidebar = response.name;
+        this._nameSidebar = response.name;
       },
       error: (error:HttpErrorResponse) => {
         const errorMessage:string = error.statusText + " (" + error.status + ")";
@@ -32,17 +43,17 @@ export class SidebarComponent implements OnInit{
     });
     this.updateImage.getUrlAvatar().subscribe({
       next: (value:string) => {
-        this.urlAvatar = value;
+        this._urlAvatar = value;
       }
     });
   }
 
-  public getNameSidebar():string{
-    return this.nameSidebar;
+  public get nameSidebar():string{
+    return this._nameSidebar;
   }
 
-  public getUrlAvatar():string{
-    return this.urlAvatar;
+  public get urlAvatar():string{
+    return this._urlAvatar;
   }
 
   public doLogout():void{
@@ -53,7 +64,7 @@ export class SidebarComponent implements OnInit{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
     this.httprequestService.httpPostRequest(environment.serverUrl + "auth/deleteavatar",dataObject).subscribe({
       next: (response:any) => {
-        this.urlAvatar = "assets/images/avatar.jpg";
+        this._urlAvatar = "assets/images/avatar.jpg";
         this.dialogmanager.openDialog(response.message);
       },
       error: (error:HttpErrorResponse) => {

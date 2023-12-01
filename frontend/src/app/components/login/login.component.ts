@@ -1,5 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Component,OnInit} from "@angular/core";
+import {Component,OnInit,inject} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
@@ -11,15 +11,19 @@ import {AuthService} from "../../services/auth.service";
 })
 
 export class LoginComponent implements OnInit{
-  private errorMessage:string = "";
+  private _errorMessage:string;
+  private authService:AuthService;
 
-  constructor(private authService:AuthService,private router:Router){}
+  constructor(private router:Router){
+    this._errorMessage = "";
+    this.authService = inject(AuthService);
+  }
+
+  public get errorMessage():string{
+    return this._errorMessage;
+  }
 
   public ngOnInit():void{}
-
-  public getErrorMessage():string{
-    return this.errorMessage;
-  }
 
   public doLogin(form:NgForm):void{
     if(form.valid){
@@ -28,11 +32,11 @@ export class LoginComponent implements OnInit{
           if(this.authService.setLogged(response)){
             this.router.navigate(["dashboard"]);
           }else{
-            this.errorMessage = "User login error.";
+            this._errorMessage = "User login error.";
           }
         },
         error:(error:HttpErrorResponse) => {
-          this.errorMessage = error.statusText + " (" + error.status + "): User login error.";
+          this._errorMessage = error.statusText + " (" + error.status + "): User login error.";
         }
       });
     }

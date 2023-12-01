@@ -1,5 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Component,OnInit} from "@angular/core";
+import {Component,OnInit,inject} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {DialogManagerService} from "../../services/dialogmanager.service";
@@ -13,16 +13,21 @@ import {environment} from "../../../environments/environment";
 })
 
 export class ChangePasswordComponent implements OnInit{
-  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private dialogmanager:DialogManagerService){}
+  private authService:AuthService;
+  private httprequestService:HttpRequestService;
+  private dialogmanager:DialogManagerService;
+
+  constructor(){
+    this.authService = inject(AuthService);
+    this.httprequestService = inject(HttpRequestService);
+    this.dialogmanager = inject(DialogManagerService);
+  }
 
   public ngOnInit():void{}
 
   public changePassword(form:NgForm):void{
-    const values:any = form.value;
-    const newPassword:string = values.newPassword;
-    const repeatPassword:string = values.repeatPassword;
-    if(newPassword && repeatPassword && newPassword !== "" && repeatPassword !== "" && newPassword === repeatPassword){
-      const dataObject:object = {accessToken:localStorage.getItem("accessToken"),newPassword:newPassword,repeatPassword:repeatPassword};
+    if(form.valid && form.value.newPassword === form.value.repeatPassword){
+      const dataObject:object = {accessToken:localStorage.getItem("accessToken"),newPassword:form.value.newPassword,repeatPassword:form.value.repeatPassword};
       this.httprequestService.httpPostRequest(environment.serverUrl + "auth/changepassword",dataObject).subscribe({
         next: (response:any) => {
           this.dialogmanager.openDialog(response.message);
@@ -38,6 +43,8 @@ export class ChangePasswordComponent implements OnInit{
           }
         }
       });
+    }else{
+      this.dialogmanager.openDialog("Some fields of the form isn't compiled correctly.");
     }
   }
 }

@@ -1,6 +1,6 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Component,EventEmitter,Input,OnInit,Output} from "@angular/core";
-import {Beer} from "../../models/beer";
+import {Component,EventEmitter,Input,OnInit,Output,inject} from "@angular/core";
+import {Beer} from "../../models/beer.model";
 import {AuthService} from "../../services/auth.service";
 import {HttpRequestService} from "../../services/httprequest.service";
 import {environment} from "../../../environments/environment";
@@ -13,11 +13,19 @@ import {environment} from "../../../environments/environment";
 
 export class CardComponent implements OnInit{
   @Input() beer:Beer = new Beer();
-  @Output() message:EventEmitter<string> = new EventEmitter<string>();
-  @Output() checkDelete:EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() seeUpdate:EventEmitter<Beer> = new EventEmitter<Beer>();
+  @Output() message:EventEmitter<string>;
+  @Output() checkDelete:EventEmitter<boolean>;
+  @Output() seeUpdate:EventEmitter<Beer>;
+  private authService:AuthService;
+  private httprequest:HttpRequestService;
 
-  constructor(private authService:AuthService,private httprequest:HttpRequestService){}
+  constructor(){
+    this.message = new EventEmitter<string>();
+    this.checkDelete = new EventEmitter<boolean>();
+    this.seeUpdate = new EventEmitter<Beer>();
+    this.authService = inject(AuthService);
+    this.httprequest = inject(HttpRequestService);
+  }
 
   public ngOnInit():void{}
 
@@ -27,7 +35,7 @@ export class CardComponent implements OnInit{
 
   public deleteBeer():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
-    this.httprequest.httpDeleteRequest(environment.serverUrl + "app/delete/" + this.beer.getBeerId(),dataObject).subscribe({
+    this.httprequest.httpDeleteRequest(environment.serverUrl + "app/delete/" + this.beer.beerId,dataObject).subscribe({
       next: (response:any) => {
         this.message.emit(response.message);
         this.checkDelete.emit(true);

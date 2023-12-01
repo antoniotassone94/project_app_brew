@@ -1,13 +1,14 @@
 <div class="profile">
   <span class="profile-data">
-    <span class="label-profile">Name:</span>&nbsp;{{getName()}}<br>
+    <span class="label-profile">Name:</span>&nbsp;{{name}}<br>
   </span>
   <span class="profile-data">
-    <span class="label-profile">E-mail:</span>&nbsp;{{getEmail()}}<br>
+    <span class="label-profile">E-mail:</span>&nbsp;{{email}}<br>
   </span>
   <span class="buttons-grid">
     <button class="btn-profile" routerLink="changepassword">Change password</button>
     <button class="btn-profile" routerLink="uploadavatar">Upload avatar</button>
   </span>
+  <button class="btn-profile btn-delete-profile" (click)="deleteProfile()">Delete this profile</button>
 </div>
 <router-outlet></router-outlet>

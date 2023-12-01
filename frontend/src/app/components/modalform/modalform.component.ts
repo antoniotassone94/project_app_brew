@@ -4,8 +4,8 @@ import {NgForm} from "@angular/forms";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer,SafeResourceUrl} from "@angular/platform-browser";
-import {Beer} from "../../models/beer";
-import {DataService} from "../../models/dataservice";
+import {Beer} from "../../models/beer.model";
+import {DataService} from "../../models/dataservice.model";
 import {AuthService} from "../../services/auth.service";
 import {HttpRequestService} from "../../services/httprequest.service";
 import {UpdateCardChangedService} from "../../services/updatecardchanged.service";
@@ -18,35 +18,19 @@ import {environment} from "../../../environments/environment";
 })
 
 export class ModalFormComponent implements OnInit{
-  private beer:Beer;
+  private _beer:Beer;
 
   constructor(@Inject(MAT_DIALOG_DATA) data:Beer,private registryIcon:MatIconRegistry,private dom:DomSanitizer,private httprequest:HttpRequestService,private authService:AuthService,private updatecard:UpdateCardChangedService){
-    this.beer = data;
+    this._beer = data;
     const urlSafe:SafeResourceUrl = this.dom.bypassSecurityTrustResourceUrl("assets/images/closeIcon.svg");
     this.registryIcon.addSvgIcon("close",urlSafe);
   }
 
+  public get beer():Beer{
+    return this._beer;
+  }
+
   public ngOnInit():void{}
-
-  public getBeerId():string{
-    return this.beer.getBeerId();
-  }
-
-  public getBrewingName():string{
-    return this.beer.getBrewingName();
-  }
-
-  public getOGvalue():number{
-    return this.beer.getOGvalue();
-  }
-
-  public getFGvalue():number{
-    return this.beer.getFGvalue();
-  }
-
-  public getAlcohol():number{
-    return this.beer.getAlcohol();
-  }
 
   public updateData(form:NgForm):void{
     const values:any = form.value;
@@ -66,15 +50,15 @@ export class ModalFormComponent implements OnInit{
       this.httprequest.httpPutRequest(environment.serverUrl + "app/update/" + beerId,dataObject).subscribe({
         next: (response:any) => {
           const newBeer:Beer = new Beer();
-          newBeer.setBeerId(response.beer.id);
-          newBeer.setBrewingName(response.beer.brewingName);
-          newBeer.setOGValue(response.beer.ogValue);
-          newBeer.setFGValue(response.beer.fgValue);
-          newBeer.setAlcohol(response.beer.alcohol);
+          newBeer.beerId = response.beer.id;
+          newBeer.brewingName = response.beer.brewingName;
+          newBeer.ogValue = response.beer.ogValue;
+          newBeer.fgValue = response.beer.fgValue;
+          newBeer.alcohol = response.beer.alcohol;
           const dataService:DataService = new DataService();
-          dataService.setBeer(newBeer);
-          dataService.setMessage(response.message);
-          dataService.setCheck(true);
+          dataService.beer = newBeer;
+          dataService.message = response.message;
+          dataService.check = true;
           this.updatecard.setDataService(dataService);
         },
         error: (error:HttpErrorResponse) => {
@@ -86,8 +70,8 @@ export class ModalFormComponent implements OnInit{
             const errorMessage: string = error.statusText + " (" + error.status + ")";
             console.error(errorMessage);
             const dataService:DataService = new DataService();
-            dataService.setMessage(error.error.message);
-            dataService.setCheck(false);
+            dataService.message = error.error.message;
+            dataService.check = false;
             this.updatecard.setDataService(dataService);
           }
         }

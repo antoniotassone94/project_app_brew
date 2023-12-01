@@ -1,10 +1,10 @@
 <div class="sidebar">
   <div class="profile">
     <div class="container-avatar">
-      <img [src]="getUrlAvatar()" alt="Avatar of the user">
+      <img [src]="urlAvatar" alt="Avatar of the user">
       <button (click)="deleteAvatar()" class="btn-delete-avatar">X</button>
     </div>
-    <h4>{{getNameSidebar()}}</h4>
+    <h4>{{nameSidebar}}</h4>
   </div>
   <ul>
     <button routerLink="profile" class="btn-sidebar-menu">Profile</button>

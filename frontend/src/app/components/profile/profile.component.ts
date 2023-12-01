@@ -1,5 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Component,OnInit} from "@angular/core";
+import {Component,OnInit,inject} from "@angular/core";
 import {AuthService} from "../../services/auth.service";
 import {HttpRequestService} from "../../services/httprequest.service";
 import {environment} from "../../../environments/environment";
@@ -11,30 +11,48 @@ import {environment} from "../../../environments/environment";
 })
 
 export class ProfileComponent implements OnInit{
-  private name:string = "";
-  private email:string = "";
+  private _name:string;
+  private _email:string;
+  private authService:AuthService;
+  private httprequestService:HttpRequestService;
 
-  constructor(private authService:AuthService,private httprequestService:HttpRequestService){}
-
-  public getName():string{
-    return this.name;
+  constructor(){
+    this._name = "";
+    this._email = "";
+    this.authService = inject(AuthService);
+    this.httprequestService = inject(HttpRequestService);
   }
 
-  public getEmail():string{
-    return this.email;
+  public get name():string{
+    return this._name;
+  }
+
+  public get email():string{
+    return this._email;
   }
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
     this.httprequestService.httpPostRequest(environment.serverUrl + "auth/user",dataObject).subscribe({
       next: (response:any) => {
-        this.name = response.name;
-        this.email = response.email;
+        this._name = response.name;
+        this._email = response.email;
       },
       error: (error:HttpErrorResponse) => {
         const errorMessage:string = error.statusText + " (" + error.status + ")";
         console.error(errorMessage);
         this.authService.logout();
+      }
+    });
+  }
+
+  public deleteProfile():void{
+    this.httprequestService.httpDeleteRequest(environment.serverUrl + "auth/user",{accessToken:localStorage.getItem("accessToken")}).subscribe({
+      next: (response:any) => {
+        console.log(response);
+      },
+      error: (error:HttpErrorResponse) => {
+        console.error(error);
       }
     });
   }

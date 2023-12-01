@@ -301,4 +301,54 @@ auth.post("/deleteavatar",async(req,res) => {
     return res.status(400).send({message:"Avatar already not available for the user.",check:false});
 })
 
+auth.delete("/user",async (req,res) => {
+    const {accessToken} = req.body;
+    if(!accessToken){
+        return res.status(406).send({message:"Missing required fields.",check:false});
+    }
+    if(typeof accessToken !== "string"){
+        return res.status(400).send({message:"Bad request, type of the field is incorrect.",check:false});
+    }
+    if(accessToken === ""){
+        return res.status(400).send({message:"Bad request, field is empty.",check:false});
+    }
+    const payload:JwtPayload|null = checkJwt(accessToken);
+    if(!payload){
+        return res.status(401).send({message:"Token not valid",check:false});
+    }
+    const userId:string = payload.userId;
+    const user:User|null = await prisma.user.findUnique({
+        where:{
+            id:userId
+        }
+    });
+    if(!user){
+        return res.status(401).send({message:"User not valid",check:false});
+    }
+    if(user.avatar !== ""){
+        fs.rm("uploads/images/"+user.avatar,() => {
+            console.log("Avatar deleted correctly.");
+        });
+    }
+    await prisma.beer.deleteMany({
+        where: {
+            userId:user.id
+        }
+    })
+    await prisma.jwtKey.deleteMany({
+        where:{
+            userId:user.id
+        }
+    })
+    const userDeleted:User|null = await prisma.user.delete({
+        where:{
+            id:user.id
+        }
+    })
+    if(!userDeleted){
+        return res.status(500).send({message:"Internal server error",check:false});
+    }
+    return res.status(200).send({message:"User deleted correctly.",check:true});
+});
+
 export {auth,checkJwt}

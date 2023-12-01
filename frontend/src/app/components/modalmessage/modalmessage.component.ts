@@ -2,7 +2,7 @@ import {Component,Inject,OnInit} from "@angular/core";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer,SafeResourceUrl} from "@angular/platform-browser";
-import {MessageType} from "../../models/servermessage";
+import {MessageType} from "../../models/servermessage.model";
 
 @Component({
   selector: "app-modalmessage",
@@ -22,6 +22,6 @@ export class ModalMessageComponent implements OnInit{
   public ngOnInit():void{}
 
   public getMessage():string{
-    return this.message.getTextMessage();
+    return this.message.textMessage;
   }
 }

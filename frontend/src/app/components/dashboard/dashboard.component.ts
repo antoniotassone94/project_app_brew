@@ -1,4 +1,4 @@
-import {Component,ElementRef,OnInit,ViewChild} from "@angular/core";
+import {Component,ElementRef,OnInit,ViewChild,inject} from "@angular/core";
 import {ResponsiveSidebarService} from "../../services/responsivesidebar.service";
 
 @Component({
@@ -10,8 +10,11 @@ import {ResponsiveSidebarService} from "../../services/responsivesidebar.service
 export class DashboardComponent implements OnInit{
   @ViewChild("sidebar") sidebar!:ElementRef;
   @ViewChild("router") router!:ElementRef;
+  private responsivesidebar:ResponsiveSidebarService;
 
-  constructor(private responsivesidebar:ResponsiveSidebarService){}
+  constructor(){
+    this.responsivesidebar = inject(ResponsiveSidebarService);
+  }
 
   public ngOnInit():void{}
 

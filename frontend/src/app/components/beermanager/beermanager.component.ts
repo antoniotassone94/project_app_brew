@@ -1,12 +1,12 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Component,OnInit} from "@angular/core";
+import {Component,OnInit,inject} from "@angular/core";
 import {NgForm} from "@angular/forms";
-import {Beer} from "../../models/beer";
+import {Beer} from "../../models/beer.model";
 import {AuthService} from "../../services/auth.service";
 import {HttpRequestService} from "../../services/httprequest.service";
 import {DialogManagerService} from "../../services/dialogmanager.service";
 import {UpdateCardChangedService} from "../../services/updatecardchanged.service";
-import {DataService} from "../../models/dataservice";
+import {DataService} from "../../models/dataservice.model";
 import {environment} from "../../../environments/environment";
 
 @Component({
@@ -16,9 +16,23 @@ import {environment} from "../../../environments/environment";
 })
 
 export class BeerManagerComponent implements OnInit{
-  private beersList:Beer[] = [];
+  private _beersList:Beer[];
+  private httprequestService:HttpRequestService;
+  private authService:AuthService;
+  private dialogManagerService:DialogManagerService;
+  private updatecard:UpdateCardChangedService;
 
-  constructor(private httprequestService:HttpRequestService,private authService:AuthService,private dialogManagerService:DialogManagerService,private updatecard:UpdateCardChangedService){}
+  constructor(){
+    this._beersList = [];
+    this.httprequestService = inject(HttpRequestService);
+    this.authService = inject(AuthService);
+    this.dialogManagerService = inject(DialogManagerService);
+    this.updatecard = inject(UpdateCardChangedService);
+  }
+
+  public get beersList():Beer[]{
+    return this._beersList;
+  }
 
   public ngOnInit():void{
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
@@ -27,12 +41,12 @@ export class BeerManagerComponent implements OnInit{
         const listBeers:any[] = response.beers;
         for (let i = 0; i < listBeers.length; i++) {
           const beer: Beer = new Beer();
-          beer.setBeerId(listBeers[i].id);
-          beer.setBrewingName(listBeers[i].brewingName);
-          beer.setOGValue(listBeers[i].ogValue);
-          beer.setFGValue(listBeers[i].fgValue);
-          beer.setAlcohol(listBeers[i].alcohol);
-          this.beersList.push(beer);
+          beer.beerId = listBeers[i].id;
+          beer.brewingName = listBeers[i].brewingName;
+          beer.ogValue = listBeers[i].ogValue;
+          beer.fgValue = listBeers[i].fgValue;
+          beer.alcohol = listBeers[i].alcohol;
+          this._beersList.push(beer);
         }
       },
       error: (error:HttpErrorResponse) => {
@@ -50,67 +64,53 @@ export class BeerManagerComponent implements OnInit{
     this.updatecard.getDataService().subscribe({
       next: (dataChanged:DataService) => {
         this.dialogManagerService.closeForm();
-        if(dataChanged.getCheck() === true){
-          const beerChanged:Beer = dataChanged.getBeer();
+        if(dataChanged.check === true){
+          const beerChanged:Beer = dataChanged.beer;
           let i = 0;
-          const beerId:string = beerChanged.getBeerId();
-          while(i < this.beersList.length && this.beersList[i].getBeerId() !== beerId){
+          const beerId:string = beerChanged.beerId;
+          while(i < this._beersList.length && this._beersList[i].beerId !== beerId){
             i++;
           }
-          if(i < this.beersList.length){
-            this.beersList[i].setBrewingName(beerChanged.getBrewingName());
-            this.beersList[i].setOGValue(beerChanged.getOGvalue());
-            this.beersList[i].setFGValue(beerChanged.getFGvalue());
-            this.beersList[i].setAlcohol(beerChanged.getAlcohol());
+          if(i < this._beersList.length){
+            this._beersList[i].brewingName = beerChanged.brewingName;
+            this._beersList[i].ogValue = beerChanged.ogValue;
+            this._beersList[i].fgValue = beerChanged.fgValue;
+            this._beersList[i].alcohol = beerChanged.alcohol;
           }
         }
-        this.dialogManagerService.openDialog(dataChanged.getMessage());
+        this.dialogManagerService.openDialog(dataChanged.message);
       }
     });
     this.updatecard.setDataService(new DataService());
   }
 
-  public getBeersList():Beer[]{
-    return this.beersList;
-  }
-
   public createBeer(form:NgForm):void{
-    const values:any = form.value;
-    const brewname:string = values.brewingname;
-    const ogValue:number = values.OG;
-    const fgValue:number = values.FG;
-    const alcohol:number = values.alcohol;
-    if(brewname && brewname !== "" && ogValue > 0 && fgValue > 0 && alcohol > 0){
-      const dataObject:object = {
-        accessToken:localStorage.getItem("accessToken"),
-        brewingName:brewname,
-        ogValue:ogValue,
-        fgValue:fgValue,
-        alcohol:alcohol
-      };
-      this.httprequestService.httpPutRequest(environment.serverUrl + "app/create",dataObject).subscribe({
-        next: (response:any) => {
-          const newBeer:Beer = new Beer();
-          newBeer.setBeerId(response.beer);
-          newBeer.setBrewingName(brewname);
-          newBeer.setOGValue(ogValue);
-          newBeer.setFGValue(fgValue);
-          newBeer.setAlcohol(alcohol);
-          this.beersList.push(newBeer);
-          this.dialogManagerService.openDialog(response.message);
-        },
-        error: (error:HttpErrorResponse) => {
-          if(error.status === 401 || error.status === 403){
-            const errorMessage: string = error.statusText + " (" + error.status + ")";
-            console.error(errorMessage);
-            this.authService.logout();
-          }else{
-            this.dialogManagerService.openDialog(error.error.message);
-            const errorMessage: string = error.statusText + " (" + error.status + ")";
-            console.error(errorMessage);
+    if(form.valid && form.value.ogValue > 0 && form.value.fgValue > 0 && form.value.alcohol > 0){
+        this.httprequestService.httpPutRequest(environment.serverUrl + "app/create",form.value).subscribe({
+          next: (response:any) => {
+            const newBeer:Beer = new Beer();
+            newBeer.beerId = response.beer;
+            newBeer.brewingName = form.value.brewingName;
+            newBeer.ogValue = form.value.ogValue;
+            newBeer.fgValue = form.value.fgValue;
+            newBeer.alcohol = form.value.alcohol;
+            this._beersList.push(newBeer);
+            this.dialogManagerService.openDialog(response.message);
+          },
+          error: (error:HttpErrorResponse) => {
+            if(error.status === 401 || error.status === 403){
+              const errorMessage: string = error.statusText + " (" + error.status + ")";
+              console.error(errorMessage);
+              this.authService.logout();
+            }else{
+              this.dialogManagerService.openDialog(error.error.message);
+              const errorMessage: string = error.statusText + " (" + error.status + ")";
+              console.error(errorMessage);
+            }
           }
-        }
-      });
+        });
+    }else{
+      this.dialogManagerService.openDialog("Some fields of the form isn't compiled correctly.");
     }
   }
 
@@ -125,11 +125,11 @@ export class BeerManagerComponent implements OnInit{
   public deleteCard(event:boolean,beerId:string):void{
     if(event){
       let i = 0;
-      while(i < this.beersList.length && this.beersList[i].getBeerId() !== beerId){
+      while(i < this._beersList.length && this._beersList[i].beerId !== beerId){
         i++;
       }
-      if(i < this.beersList.length){
-        this.beersList.splice(i,1);
+      if(i < this._beersList.length){
+        this._beersList.splice(i,1);
       }
     }
   }

@@ -1,4 +1,4 @@
-import {Component,OnInit} from "@angular/core";
+import {Component,OnInit,inject} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 
@@ -9,7 +9,11 @@ import {AuthService} from "../../services/auth.service";
 })
 
 export class MainComponent implements OnInit{
-  constructor(private authService:AuthService,private router:Router){}
+  private authService:AuthService;
+
+  constructor(private router:Router){
+    this.authService = inject(AuthService);
+  }
 
   public ngOnInit():void{
     if(this.authService.isLogged() === true){

@@ -1,5 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Component,OnInit} from "@angular/core";
+import {Component,OnInit,inject} from "@angular/core";
 import {AuthService} from "../../services/auth.service";
 import {DialogManagerService} from "../../services/dialogmanager.service";
 import {HttpRequestService} from "../../services/httprequest.service";
@@ -13,9 +13,19 @@ import {environment} from "../../../environments/environment";
 })
 
 export class UploadAvatarComponent implements OnInit{
-  private selectedFile:File|null = null;
+  private selectedFile:File|null;
+  private authService:AuthService;
+  private httprequestService:HttpRequestService;
+  private updateImage:UpdateAvatarImageService;
+  private dialogmanager:DialogManagerService;
 
-  constructor(private authService:AuthService,private httprequestService:HttpRequestService,private updateImage:UpdateAvatarImageService,private dialogmanager:DialogManagerService){}
+  constructor(){
+    this.selectedFile = null;
+    this.authService = inject(AuthService);
+    this.httprequestService = inject(HttpRequestService);
+    this.updateImage = inject(UpdateAvatarImageService);
+    this.dialogmanager = inject(DialogManagerService);
+  }
 
   public ngOnInit():void{}
 

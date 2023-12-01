@@ -1,5 +1,5 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Injectable} from "@angular/core";
+import {Injectable,inject} from "@angular/core";
 import {BehaviorSubject,Observable} from "rxjs";
 import {HttpRequestService} from "./httprequest.service";
 import {environment} from "../../environments/environment";
@@ -9,10 +9,14 @@ import {environment} from "../../environments/environment";
 })
 
 export class UpdateAvatarImageService{
-  private urlAvatar:BehaviorSubject<string> = new BehaviorSubject<string>("assets/images/avatar.jpg"); //url dell'avatar di default
-  private urlObservable:Observable<string> = this.urlAvatar.asObservable();
+  private urlAvatar:BehaviorSubject<string>;
+  private urlObservable:Observable<string>;
+  private httprequestService:HttpRequestService;
 
-  constructor(private httprequestService:HttpRequestService){
+  constructor(){
+    this.urlAvatar = new BehaviorSubject<string>("assets/images/avatar.jpg"); //url dell'avatar di default
+    this.urlObservable = this.urlAvatar.asObservable();
+    this.httprequestService = inject(HttpRequestService);
     const dataObject:object = {accessToken:localStorage.getItem("accessToken")};
     this.httprequestService.httpPostRequest(environment.serverUrl + "auth/user",dataObject).subscribe({
       next: (response:any) => {

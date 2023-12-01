@@ -6,6 +6,6 @@
     <label for="FG">Final Gravity (FG)</label>
     <input type="number" name="FG" id="FG" ngModel>
     <button type="submit" class="btn-calculator">Calculate</button><br>
-    <span *ngIf="getResult() != ''">Your beer will have {{getResult()}}% alcohol.</span>
+    <span *ngIf="result !== ''">Your beer will have {{result}}% alcohol.</span>
   </form>
 </div>
